@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "paths": {
+            "models": ["./scripts/models"],
+            "components": ["./scripts/components"],
+            "functions": ["./scripts/functions"],
+            "styles": ["./styles"],
+            "assets": ["./assets"],
+        },
+    },
+}
