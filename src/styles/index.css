@@ -1,3 +1,4 @@
+/* CSS Setup */
 @font-face {
 	font-family: "Roboto-100";
 	src: url(../assets/fonts/Roboto-Thin.ttf);
@@ -68,6 +69,20 @@ html {
 	position: relative;
 }
 
+/* Form */
+form#import-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.import-actions-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Tags */
 p {
 	text-align: center;
 	text-size-adjust: none;
@@ -91,15 +106,20 @@ p {
 	align-items: center;
 	justify-content: center;
 	border: 1px solid black;
-	margin: 0.5em;
-	height: 5em;
+	margin: 0.2em;
+	padding-top: 0.2em;
+	height: 4em;
 	width: 15em;
 	overflow: visible;
 }
 
 .tag > p {
-	font-size: 0.8em;
-	margin-bottom: 0.5em;
+	font-size: 0.7em;
+	width: 100%;
+}
+
+.tag > p.product-name {
+	padding: 0 0.1em 0 0.1em;
 }
 
 /* Tag Highlighting Categories */
@@ -120,6 +140,7 @@ p.category-Pre-Rolls {
 }
 
 p.category-Topicals {
+	background-color: rgba(125, 239, 156, 0.5);
 }
 
 p.category-Flower {
@@ -131,15 +152,19 @@ p.category-Beverages {
 }
 
 @media print {
+	@page {
+		margin: 0.1in;
+	}
 	html {
 		print-color-adjust: exact;
+		-webkit-print-color-adjust: exact;
 	}
 
 	div {
 		break-inside: avoid;
 	}
 
-	form {
+	form#import-form {
 		display: none;
 		height: 0;
 	}
