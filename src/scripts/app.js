@@ -3,14 +3,18 @@
 const app = document.querySelector("#app");
 
 const form = document.createElement("form");
+form.id = "import-form";
 const formTitle = document.createElement("h2");
 formTitle.textContent = "Import Purchase Order";
 form.appendChild(formTitle);
 
+const importActionContainer = document.createElement("div");
+importActionContainer.classList.add("import-actions-container");
+
 const csvInput = document.createElement("input");
 csvInput.type = "file";
 csvInput.accept = ".csv";
-form.appendChild(csvInput);
+importActionContainer.appendChild(csvInput);
 
 const submitButton = document.createElement("button");
 submitButton.textContent = "Generate";
@@ -68,6 +72,7 @@ submitButton.addEventListener("click", (event) => {
 		console.log("no file");
 	}
 });
-form.appendChild(submitButton);
 
+importActionContainer.appendChild(submitButton);
+form.appendChild(importActionContainer);
 app.appendChild(form);
