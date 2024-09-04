@@ -33,6 +33,14 @@ function buildImportForm(parentElement) {
 
 	const buttonContainer = document.createElement("div");
 
+	const optionsButton = document.createElement("button");
+	optionsButton.classList.add("options-btn");
+	optionsButton.addEventListener("click", (event) => event.preventDefault());
+	const gearsIcon = document.createElement("i");
+	gearsIcon.classList.add("fa-solid", "fa-xl", "fa-gears");
+	optionsButton.appendChild(gearsIcon);
+	buttonContainer.appendChild(optionsButton);
+
 	const submitButton = document.createElement("button");
 	submitButton.classList.add("generate-btn");
 	submitButton.addEventListener("click", (event) => {
@@ -51,18 +59,13 @@ function buildImportForm(parentElement) {
 	submitButton.appendChild(fileCirclePlusIcon);
 	buttonContainer.appendChild(submitButton);
 
-	const optionsButton = document.createElement("button");
-	optionsButton.classList.add("options-btn");
-	const gearsIcon = document.createElement("i");
-	gearsIcon.classList.add("fa-solid", "fa-xl", "fa-gears");
-	optionsButton.appendChild(gearsIcon);
-	buttonContainer.appendChild(optionsButton);
-
 	const printButton = document.createElement("button");
 	printButton.classList.add("print-btn");
 	printButton.addEventListener("click", (event) => {
 		event.preventDefault();
-		print();
+		if (hasGenerated) {
+			print();
+		}
 	});
 	const printIcon = document.createElement("i");
 	printIcon.classList.add("fa-solid", "fa-xl", "fa-print");
@@ -117,16 +120,16 @@ function generateTags(event) {
 				}
 				appContainer.appendChild(tagContainer);
 			} else {
-				this.hasGenerated = false;
+				hasGenerated = false;
 				console.log("no data");
 			}
 		};
 		reader.onerror = () => {
-			this.hasGenerated = false;
+			hasGenerated = false;
 			console.log("reader.onerror:" + reader.error);
 		};
 	} else {
-		this.hasGenerated = false;
+		hasGenerated = false;
 		console.log("no file");
 	}
 }
