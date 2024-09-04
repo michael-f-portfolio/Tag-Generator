@@ -3,28 +3,38 @@ import Tags from "./models/Tags.js";
 import Tag from "./models/Tag.js";
 import TagElement from "./models/TagElement.js";
 
-const app = document.querySelector("#app");
-buildImportForm(app);
+const appContainer = document.querySelector("#app");
 let hasGenerated = false;
 
-function buildImportForm(appContainer) {
+build();
+
+function build() {
+	buildHeader();
+}
+
+function buildHeader() {
+	const header = document.createElement("header");
+	const title = document.createElement("h2");
+	title.textContent = "PO TAG GENERATOR";
+	header.appendChild(title);
+	buildImportForm(header);
+	appContainer.appendChild(header);
+}
+
+function buildImportForm(parentElement) {
 	const form = document.createElement("form");
 	form.id = "import-form";
-
-	const formTitle = document.createElement("h2");
-	formTitle.textContent = "Import Purchase Order";
-	form.appendChild(formTitle);
-
-	const importActionContainer = document.createElement("div");
-	importActionContainer.classList.add("import-actions-container");
 
 	const csvInput = document.createElement("input");
 	csvInput.type = "file";
 	csvInput.accept = ".csv";
-	importActionContainer.appendChild(csvInput);
+	csvInput.id = "csv-file-upload";
+	form.appendChild(csvInput);
+
+	const buttonContainer = document.createElement("div");
 
 	const submitButton = document.createElement("button");
-	submitButton.textContent = "Generate";
+	submitButton.classList.add("generate-btn");
 	submitButton.addEventListener("click", (event) => {
 		event.preventDefault();
 		if (!hasGenerated) {
@@ -32,13 +42,39 @@ function buildImportForm(appContainer) {
 			generateTags(event);
 		}
 	});
-	importActionContainer.appendChild(submitButton);
+	const fileCirclePlusIcon = document.createElement("i");
+	fileCirclePlusIcon.classList.add(
+		"fa-solid",
+		"fa-xl",
+		"fa-file-circle-plus"
+	);
+	submitButton.appendChild(fileCirclePlusIcon);
+	buttonContainer.appendChild(submitButton);
 
-	form.appendChild(importActionContainer);
-	appContainer.appendChild(form);
+	const optionsButton = document.createElement("button");
+	optionsButton.classList.add("options-btn");
+	const gearsIcon = document.createElement("i");
+	gearsIcon.classList.add("fa-solid", "fa-xl", "fa-gears");
+	optionsButton.appendChild(gearsIcon);
+	buttonContainer.appendChild(optionsButton);
+
+	const printButton = document.createElement("button");
+	printButton.classList.add("print-btn");
+	printButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		print();
+	});
+	const printIcon = document.createElement("i");
+	printIcon.classList.add("fa-solid", "fa-xl", "fa-print");
+	printButton.appendChild(printIcon);
+	buttonContainer.appendChild(printButton);
+
+	form.appendChild(buttonContainer);
+	parentElement.appendChild(form);
 }
 
 /**
+ * Main function, generates tags based on a inputted purchase order CSV file.
  * Based on the following CSV structure:
  * 0,   1,    2,                3,        4,           5,          6,          7,        8
  * Sku, Name, PackageReference, Category, Subcategory, OrderedQty, CurrentQty, UnitCost, Total Cost
@@ -79,7 +115,7 @@ function generateTags(event) {
 					const tagElement = new TagElement(tag);
 					tagContainer.appendChild(tagElement.element);
 				}
-				app.appendChild(tagContainer);
+				appContainer.appendChild(tagContainer);
 			} else {
 				this.hasGenerated = false;
 				console.log("no data");

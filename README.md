@@ -17,6 +17,9 @@ Add a header
 Possibly a modal/intro page
 footer??? with a tip option....? LOL
 Don't trim the first 15 lines
+color picker for categories/subcategories
+
 
 BUGS:
-Clicking generate multiple times doesn't create a new set of tags but instead appends to the end.
+Clicking generate multiple times doesn't create a new set of tags but instead appends to the end. FIXED
+Have to refresh to generate a new report
