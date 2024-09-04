@@ -7,8 +7,16 @@ TODO:
 Refactor app.js to functions instead of just one long script
 Sort by category than alphabetical based on producer.
 Option to sort by brand instead
-Separate Infused PR from Non-Infused
+Separate Infused PR from Non-Infused DONE
 Sort flower by size (3.5g, 7g, 14g, 15g, 28g)
 Get colors for category highlighting
 Possibly add barcode option (although scanning has never been used in my experience)
 Test with 3 and 4 line product names (aka very long product names)
+Add a print button
+Add a header
+Possibly a modal/intro page
+footer??? with a tip option....? LOL
+Don't trim the first 15 lines
+
+BUGS:
+Clicking generate multiple times doesn't create a new set of tags but instead appends to the end.
