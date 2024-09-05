@@ -1,0 +1,29 @@
+Id,00001
+Description,Imported PO on 2024 August 28 60105249
+Supplier Invoice Number,12345678
+Vendor Name,AGLC
+Payment Due Date,1/01/1970 7:00:00 AM
+Date Expected,1/01/1970 7:00:00 AM
+Subtotal,50000.00
+Shipping,500.00
+Recycle Fee,0.50
+Deposit Amount,10.00
+GST,2000.00
+Total,52510.50
+
+
+Sku,Name,PackageReference,Category,Subcategory,OrderedQty,CurrentQty,UnitCost,Total
+700167,CRO Strawberry Mango Gummies Sativa 5 Pack - Spinach,,Edibles,Gummies,12.000,0,3.21,38.52
+700445,IND Blue Razzleberry Gummies Hybrid 5 Pack - Pearls By Gron,,Edibles,Gummies,48.000,0,3.29,157.92
+700948,IND The Pink One Sativa 1 Pack - No Future,,Edibles,Gummies,72.000,0,1.79,128.88
+701052,IND Key Lime Cherry Revolt Sour Gummies Hybrid 10 g - No Future,,Edibles,Gummies,72.000,0,1.79,128.88
+701051,IND Arctic Meltdown Blues Sour Gummies Hybrid 1 Pack - No Future,,Edibles,Gummies,72.000,0,1.79,128.88
+700366,ORG Bedtime Blueberry Lemon CBN 3:8:1 Gummies Indica 4 Pack - Monjour Bare,,Edibles,Gummies,12.000,0,5.07,60.84
+701116,iNA Orange 10 mg THC Gummies Sativa 5 g - Emprise Rapid,,Edibles,Gummies,24.000,0,2.12,50.88
+701115,iNA BlueRaz 10 mg THC Gummies Indica 5 g - Emprise Rapid,,Edibles,Gummies,24.000,0,2.12,50.88
+700721,TIL Chowie Wowie Balanced Chocolate Hybrid 1 Pack - Chowie Wowie,,Edibles,Chocolates,12.000,0,3.30,39.60
+700503,IND Vanilla Double Stuffed Chocolate Cookie Hybrid 20 g - Indiva Life,,Edibles,Baked Goods & Pantry,24.000,0,2.69,64.56
+202035,TWI Café Vanilla Delight Live Resin AIO Vape Pen Sativa 1 g - 7Acres,,Vapes,All-In-Ones,12.000,0,33.59,403.08
+202090,UTS Gucci Fruit Dual Chamber Vape Cartridge Hybrid 1.2 g - Disco Fsh,,Vapes,All-In-Ones,12.000,0,27.98,335.76
+201998,WSL Razzilicious AIO Disposable Vape Hybrid 1 g - General Admission,,Vapes,All-In-Ones,12.000,0,25.97,311.64
+201700,MOT Cruise Control Fiji Fresh THC + CBD Vape Cartridge Sativa 2 g - BoxHot,,Vapes,510 Carts,12.000,0,34.99,419.88
