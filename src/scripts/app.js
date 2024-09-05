@@ -5,6 +5,8 @@ import TagElement from "./models/TagElement.js";
 
 const appContainer = document.querySelector("#app");
 let hasGenerated = false;
+let newUpload = false;
+let selectedFile = "";
 
 build();
 
@@ -26,6 +28,13 @@ function buildImportForm(parentElement) {
 	form.id = "import-form";
 
 	const csvInput = document.createElement("input");
+	csvInput.addEventListener("change", (event) => {
+		// no files have attempted to be uploaded
+		if (selectedFile !== "" && selectedFile !== event.target.value) {
+			newUpload = true;
+		}
+		selectedFile = event.target.value;
+	});
 	csvInput.type = "file";
 	csvInput.accept = ".csv";
 	csvInput.id = "csv-file-upload";
@@ -47,6 +56,10 @@ function buildImportForm(parentElement) {
 		event.preventDefault();
 		if (!hasGenerated) {
 			hasGenerated = true;
+			generateTags(event);
+		} else if (newUpload) {
+			clearTags();
+			newUpload = false;
 			generateTags(event);
 		}
 	});
@@ -132,4 +145,9 @@ function generateTags(event) {
 		hasGenerated = false;
 		console.log("no file");
 	}
+}
+
+function clearTags() {
+	const tagContainer = document.querySelector("#tag-container");
+	tagContainer.parentNode.removeChild(tagContainer);
 }
