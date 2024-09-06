@@ -6,9 +6,9 @@ export default class Tags {
 	 * @param {Array<Tag>} tags
 	 */
 	constructor(tags) {
-		this.tags = [];
+		this.entries = [];
 		if (tags) {
-			this.tags.push(tags);
+			this.entries.push(tags);
 		}
 	}
 
@@ -17,6 +17,6 @@ export default class Tags {
 	 * @param {Tag} tag
 	 */
 	appendTag(tag) {
-		this.tags.push(tag);
+		this.entries.push(tag);
 	}
 }
