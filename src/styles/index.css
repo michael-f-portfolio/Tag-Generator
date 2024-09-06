@@ -202,40 +202,31 @@ p {
 }
 
 /* Category Highlights */
-p.category-Edibles {
+p.category-Edibles,
+p.category-Beverages {
 	background-color: rgba(125, 239, 156, 0.5);
 }
 
 p.category-Vapes {
-	background-color: rgba(240, 125, 125, 0.5);
+	background-color: rgba(255, 99, 247, 0.5);
 }
 
-p.category-Concentrates {
-	background-color: rgba(125, 142, 240, 0.5);
+p.category-Concentrates,
+p.category-Pre-Rolls.subCategory-Infused-Pre-Rolls,
+p.category-Pre-Rolls.subCategory-Infused-Blunts {
+	background-color: rgba(179, 86, 255, 0.5);
 }
 
 p.category-Pre-Rolls {
-	background-color: rgba(248, 255, 85, 0.5);
-}
-
-p.category-Pre-Rolls.subCategory-Infused-Pre-Rolls {
-	background-color: rgba(125, 209, 240, 0.5);
-}
-
-p.category-Pre-Rolls.subCategory-Infused-Blunts {
-	background-color: rgba(125, 209, 240, 0.5);
+	background-color: rgba(85, 116, 255, 0.5);
 }
 
 p.category-Topicals {
-	background-color: rgba(254, 255, 172, 0.5);
+	background-color: rgba(255, 183, 88, 0.5);
 }
 
 p.category-Flower {
-	background-color: rgba(156, 85, 255, 0.5);
-}
-
-p.category-Beverages {
-	background-color: rgba(125, 239, 156, 0.5);
+	background-color: rgba(255, 252, 85, 0.5);
 }
 
 @media print {
