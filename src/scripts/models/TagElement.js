@@ -9,10 +9,20 @@ export default class TagElement {
 		this.name.textContent = tag.productName;
 		this.name.classList.add("name");
 
-		this.name.classList.add(`category-${tag.category.replace(/\s/g, "-")}`);
-		this.name.classList.add(
-			`subCategory-${tag.subCategory.replace(/\s/g, "-")}`
-		);
+		// sanitize category and sub-category
+		let category = tag.category;
+		let subCategory = tag.subCategory;
+
+		// remove all whitespace
+		category = category.replace(/\s/g, "-");
+		subCategory = subCategory.replace(/\s/g, "-");
+
+		// remove all ampersands
+		category = category.replace("&", "and");
+		subCategory = subCategory.replace("&", "and");
+
+		this.name.classList.add(`category-${category}`);
+		this.name.classList.add(`subCategory-${subCategory}`);
 
 		this.element.appendChild(this.name);
 
