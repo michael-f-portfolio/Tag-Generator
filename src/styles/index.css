@@ -187,8 +187,10 @@ p {
 	justify-content: center;
 	border: 1px solid black;
 	margin: 0.2em;
-	height: 4em;
-	width: 15em;
+	/* height: 4em;
+	width: 15em; */
+	height: 16mm;
+	width: 48mm;
 	overflow: visible;
 }
 
@@ -211,7 +213,10 @@ p.category-Vapes {
 	background-color: rgba(255, 99, 247, 0.5);
 }
 
-p.category-Concentrates,
+p.category-Concentrates {
+	background-color: rgba(211, 157, 255, 0.5);
+}
+
 p.category-Pre-Rolls.subCategory-Infused-Pre-Rolls,
 p.category-Pre-Rolls.subCategory-Infused-Blunts {
 	background-color: rgba(179, 86, 255, 0.5);
@@ -227,6 +232,10 @@ p.category-Topicals {
 
 p.category-Flower {
 	background-color: rgba(255, 252, 85, 0.5);
+}
+
+p.category-Oils-and-Caps {
+	background-color: rgba(255, 183, 88, 0.5);
 }
 
 @media print {
