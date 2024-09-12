@@ -1,0 +1,20 @@
+Id,00001
+Description,Imported PO on 2024 August 28 60105249
+Supplier Invoice Number,12345678
+Vendor Name,AGLC
+Payment Due Date,1/01/1970 7:00:00 AM
+Date Expected,1/01/1970 7:00:00 AM
+Subtotal,50000.00
+Shipping,500.00
+Recycle Fee,0.50
+Deposit Amount,10.00
+GST,2000.00
+Total,52510.50
+
+
+Sku,Name,PackageReference,Category,Subcategory,OrderedQty,CurrentQty,UnitCost,Total
+
+
+123456,ABC This is a test product PR 5 x 0.35 g INDICA 1.75g - Cool Producer,,Pre-Rolls,Joints,48,0,26.25,1200.00
+
+
