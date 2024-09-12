@@ -10,7 +10,7 @@ TODO:
 3. Option to sort by brand instead
 4. ~~Separate Infused PR from Non-Infused~~
 5. Sort flower by size (3.5g, 7g, 14g, 15g, 28g)
-6. Get colors for category highlighting
+6. ~~Get colors for category highlighting~~
 7. Possibly add barcode option (although scanning has never been used in my experience)
 8. Test with 3 and 4 line product names (aka very long product names)
 9. ~~Add a print button~~
@@ -19,8 +19,9 @@ TODO:
 12. Footer?
 13. Don't trim the first 15 lines
 14. Color picker for categories/subcategories
+15. Introduction text where main tag document is "No Purchase Order Loaded..." or something similar
 
 BUGS:
 
 1. ~~Clicking generate multiple times doesn't create a new set of tags but instead appends to the end.~~
-2. Have to refresh to generate a new report
+2. ~~Have to refresh to generate a new report~~
