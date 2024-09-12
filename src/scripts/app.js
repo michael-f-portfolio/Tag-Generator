@@ -30,9 +30,7 @@ function buildImportForm(parentElement) {
 	const csvInput = document.createElement("input");
 	csvInput.addEventListener("change", (event) => {
 		// no files have attempted to be uploaded
-		if (selectedFile !== "" && selectedFile !== event.target.value) {
-			newUpload = true;
-		}
+		newUpload = selectedFile !== "" && selectedFile !== event.target.value;
 		selectedFile = event.target.value;
 	});
 	csvInput.type = "file";
@@ -50,18 +48,11 @@ function buildImportForm(parentElement) {
 	optionsButton.appendChild(gearsIcon);
 	buttonContainer.appendChild(optionsButton);
 
-	const submitButton = document.createElement("button");
-	submitButton.classList.add("generate-btn");
-	submitButton.addEventListener("click", (event) => {
+	const generateButton = document.createElement("button");
+	generateButton.classList.add("generate-btn");
+	generateButton.addEventListener("click", (event) => {
 		event.preventDefault();
-		if (!hasGenerated) {
-			hasGenerated = true;
-			generateTags(event);
-		} else if (newUpload) {
-			clearTags();
-			newUpload = false;
-			generateTags(event);
-		}
+		generateTagElements(event);
 	});
 	const fileCirclePlusIcon = document.createElement("i");
 	fileCirclePlusIcon.classList.add(
@@ -69,8 +60,8 @@ function buildImportForm(parentElement) {
 		"fa-xl",
 		"fa-file-circle-plus"
 	);
-	submitButton.appendChild(fileCirclePlusIcon);
-	buttonContainer.appendChild(submitButton);
+	generateButton.appendChild(fileCirclePlusIcon);
+	buttonContainer.appendChild(generateButton);
 
 	const printButton = document.createElement("button");
 	printButton.classList.add("print-btn");
@@ -90,64 +81,115 @@ function buildImportForm(parentElement) {
 }
 
 /**
- * Main function, generates tags based on a inputted purchase order CSV file.
- * Based on the following CSV structure:
- * 0,   1,    2,                3,        4,           5,          6,          7,        8
- * Sku, Name, PackageReference, Category, Subcategory, OrderedQty, CurrentQty, UnitCost, Total Cost
- * @param {Event} event
+ * Determines if a new tag document should be created based on two booleans:
+ * hasGenerated - if a tag document has never been generated, start the process to create a new one.
+ * newUpload -
  */
-function generateTags(event) {
-	const purchaseOrderCSV = event.currentTarget.form[0].files[0];
-	if (purchaseOrderCSV !== null && purchaseOrderCSV !== undefined) {
-		let reader = new FileReader();
-		reader.readAsText(purchaseOrderCSV);
-		reader.onload = () => {
-			const purchaseOrderResult = reader.result;
-			if (purchaseOrderResult.length > 0) {
-				let papaParseResults = Papa.parse(purchaseOrderResult).data;
-				papaParseResults = papaParseResults.slice(15);
-
-				const tags = new Tags();
-				const tagContainer = document.createElement("div");
-				tagContainer.id = "tag-container";
-
-				for (let i = 0; i < papaParseResults.length - 1; i++) {
-					const papaParseResult = papaParseResults[i];
-					const product = new Product(
-						papaParseResult[0], // SKU
-						papaParseResult[1], // Name
-						papaParseResult[2], // Package Reference
-						papaParseResult[3], // Category
-						papaParseResult[4], // Subcategory
-						papaParseResult[5], // Ordered Quantity
-						papaParseResult[6], // Current Quantity
-						papaParseResult[7], // Unit Cost
-						papaParseResult[8] // Total Cost
-					);
-
-					const tag = new Tag(product);
-					tags.appendTag(tag);
-
-					const tagElement = new TagElement(tag);
-					tagContainer.appendChild(tagElement.element);
-				}
-				appContainer.appendChild(tagContainer);
-			} else {
-				hasGenerated = false;
-				console.log("no data");
-			}
-		};
-		reader.onerror = () => {
-			hasGenerated = false;
-			console.log("reader.onerror:" + reader.error);
-		};
-	} else {
-		hasGenerated = false;
-		console.log("no file");
+function generateTagElements(event) {
+	if (!hasGenerated) {
+		readFileInput(event);
+	} else if (newUpload) {
+		removeTagElements();
+		newUpload = false;
+		readFileInput(event);
 	}
 }
 
-function clearTags() {
+/**
+ * Reads the file input and sends it to the parser.
+ * @param {Event} event
+ */
+function readFileInput(event) {
+	const fileInput = event.currentTarget.form[0].files[0];
+	if (fileInput !== null && fileInput !== undefined) {
+		let reader = new FileReader();
+		reader.readAsText(fileInput);
+		reader.onload = () => {
+			parsePurchaseOrderCSV(reader.result);
+		};
+	} else {
+		console.log("no file");
+		hasGenerated = false;
+	}
+}
+
+/**
+ * Parses a purchase order based on the following CSV structure:
+ * 0,   1,    2,                3,        4,           5,          6,          7,        8
+ * Sku, Name, PackageReference, Category, Subcategory, OrderedQty, CurrentQty, UnitCost, Total Cost
+ * @param {ArrayBuffer} fileInputResult
+ */
+function parsePurchaseOrderCSV(fileInputResult) {
+	if (fileInputResult.length > 0) {
+		Papa.parse(fileInputResult, {
+			complete: (results) => {
+				createProducts(results);
+			},
+		});
+	} else {
+		console.log("no data");
+		hasGenerated = false;
+	}
+}
+
+function createProducts(results) {
+	const products = [];
+	const data = results.data.slice(15);
+	for (let i = 0; i < data.length; i++) {
+		const item = data[i];
+		// PapaParse adds entries for blank spaces so we're not going to include those
+		if (item[0] !== "") {
+			const product = new Product(
+				item[0], // SKU
+				item[1], // Name
+				item[2], // Package Reference
+				item[3], // Category
+				item[4], // Subcategory
+				item[5], // Ordered Quantity
+				item[6], // Current Quantity
+				item[7], // Unit Cost
+				item[8] // Total Cost
+			);
+			products.push(product);
+		}
+	}
+	createTags(products);
+}
+
+function createTags(products) {
+	const tags = new Tags();
+	if (products.length > 0) {
+		products.forEach((product) => tags.appendTag(new Tag(product)));
+	}
+	createTagElements(tags);
+}
+
+function createTagElements(tags) {
+	const tagElements = [];
+	if (tags.entries.length > 0) {
+		tags.entries.forEach((tag) => {
+			tagElements.push(new TagElement(tag));
+		});
+	}
+	addTagElementsToDOM(tagElements);
+}
+
+function addTagElementsToDOM(tagElements) {
+	if (tagElements.length > 0) {
+		const tagContainer = document.createElement("div");
+		tagContainer.id = "tag-container";
+		tagElements.forEach((tagElement) => {
+			tagContainer.appendChild(tagElement.element);
+		});
+		appContainer.appendChild(tagContainer);
+		hasGenerated = true;
+	} else {
+		hasGenerated = false;
+	}
+}
+
+function removeTagElements() {
 	const tagContainer = document.querySelector("#tag-container");
 	tagContainer.parentNode.removeChild(tagContainer);
+	hasGenerated = false;
 }
