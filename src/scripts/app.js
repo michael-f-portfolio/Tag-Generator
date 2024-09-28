@@ -1,7 +1,9 @@
+import Products from "./models/Products.js";
 import Product from "./models/Product.js";
 import Tags from "./models/Tags.js";
 import Tag from "./models/Tag.js";
 import TagElement from "./models/TagElement.js";
+import createSummarizer from "./functions/POSummarizer.js";
 
 const appContainer = document.querySelector("#app");
 let hasGenerated = false;
@@ -133,7 +135,7 @@ function parsePurchaseOrderCSV(fileInputResult) {
 }
 
 function createProducts(results) {
-	const products = [];
+	const products = new Products();
 	const data = results.data.slice(15);
 	for (let i = 0; i < data.length; i++) {
 		const item = data[i];
@@ -150,10 +152,12 @@ function createProducts(results) {
 				item[7], // Unit Cost
 				item[8] // Total Cost
 			);
-			products.push(product);
+			products.array.push(product);
 		}
 	}
-	createTags(products);
+
+	appContainer.appendChild(createSummarizer(products));
+	// createTags(products);
 }
 
 function createTags(products) {
