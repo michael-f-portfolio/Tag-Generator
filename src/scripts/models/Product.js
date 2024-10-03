@@ -1,3 +1,5 @@
+import ProductName from "./ProductName.js";
+
 export default class Product {
 	constructor(
 		SKU,
@@ -11,7 +13,7 @@ export default class Product {
 		totalCost
 	) {
 		this.SKU = SKU;
-		this.name = name;
+		this.name = new ProductName(name);
 		this.packageReference = packageReference;
 		this.category = category;
 		this.subCategory = subCategory;
