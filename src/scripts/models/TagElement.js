@@ -9,7 +9,7 @@ export default class TagElement {
 		this.name.textContent = tag.productName;
 		this.name.classList.add("name");
 
-		// sanitize category and sub-category
+		//// sanitize category and sub-category
 		let category = tag.category;
 		let subCategory = tag.subCategory;
 
@@ -25,6 +25,11 @@ export default class TagElement {
 		this.name.classList.add(`subCategory-${subCategory}`);
 
 		this.element.appendChild(this.name);
+
+		this.SKUBarcode = document.createElement("img");
+		this.SKUBarcode.id = `barcode-${tag.SKU}`;
+		this.SKUBarcode.classList.add("barcode");
+		this.element.appendChild(this.SKUBarcode);
 
 		this.SKU = document.createElement("p");
 		this.SKU.textContent = tag.SKU;
