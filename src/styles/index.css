@@ -187,11 +187,8 @@ p {
 	justify-content: center;
 	border: 1px solid black;
 	margin: 0.2em;
-	/* height: 4em;
-	width: 15em; */
-	height: 16mm;
+	height: 20mm;
 	width: 48mm;
-	overflow: visible;
 }
 
 .tag > p {
