@@ -178,19 +178,23 @@ function addTagElementsToDOM(tagElements) {
 			tagContainer.appendChild(tagElement.element);
 		});
 		appContainer.appendChild(tagContainer);
-		tagContainer.childNodes.forEach((childNode) => {
-			const img = childNode.querySelector("img");
-			JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
-				format: "ITF",
-				height: 25,
-				width: 1,
-				fontSize: 14,
-				margin: 1,
-				marginTop: 5,
-				textMargin: 0,
-				displayValue: false,
+		// UI Toggle
+		const withBarcode = false;
+		if (withBarcode) {
+			tagContainer.childNodes.forEach((childNode) => {
+				const img = childNode.querySelector("img");
+				JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
+					format: "ITF",
+					height: 25,
+					width: 1,
+					fontSize: 14,
+					margin: 1,
+					marginTop: 5,
+					textMargin: 0,
+					displayValue: false,
+				});
 			});
-		});
+		}
 		hasGenerated = true;
 	} else {
 		hasGenerated = false;
