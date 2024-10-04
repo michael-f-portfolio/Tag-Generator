@@ -14,12 +14,9 @@ function build() {
 }
 
 function buildHeader() {
-	const header = document.createElement("header");
-	const title = document.createElement("h2");
-	title.textContent = "PO TAG GENERATOR";
-	header.appendChild(title);
+	const header = document.querySelector("header");
 	buildImportForm(header);
-	appContainer.appendChild(header);
+	buildOptionsModal();
 }
 
 function buildImportForm(parentElement) {
@@ -39,13 +36,16 @@ function buildImportForm(parentElement) {
 
 	const buttonContainer = document.createElement("div");
 
-	const optionsButton = document.createElement("button");
-	optionsButton.classList.add("options-btn");
-	optionsButton.addEventListener("click", (event) => event.preventDefault());
+	const showOptionsButton = document.createElement("button");
+	showOptionsButton.classList.add("options-btn");
+	showOptionsButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		showOptionsModal();
+	});
 	const gearsIcon = document.createElement("i");
 	gearsIcon.classList.add("fa-solid", "fa-xl", "fa-gears");
-	optionsButton.appendChild(gearsIcon);
-	buttonContainer.appendChild(optionsButton);
+	showOptionsButton.appendChild(gearsIcon);
+	buttonContainer.appendChild(showOptionsButton);
 
 	const generateButton = document.createElement("button");
 	generateButton.classList.add("generate-btn");
@@ -73,6 +73,21 @@ function buildImportForm(parentElement) {
 
 	form.appendChild(buttonContainer);
 	parentElement.appendChild(form);
+}
+
+function buildOptionsModal() {
+	const optionsModal = document.querySelector("#optionsModal");
+	const optionsSubmitButton = document.querySelector("#optionsSubmit");
+	optionsSubmitButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		withBarcode = event.target.form.querySelector("#withBarcodes").checked;
+		newUpload = true;
+		optionsModal.close();
+	});
+}
+
+function showOptionsModal() {
+	document.querySelector("#optionsModal").showModal();
 }
 
 /**
