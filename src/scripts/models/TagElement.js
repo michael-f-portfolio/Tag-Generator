@@ -1,23 +1,30 @@
-import Tag from "./Tag.js";
-
 export default class TagElement {
-	constructor(tag) {
+	constructor(product, withBarcode) {
 		this.element = document.createElement("div");
 		this.element.classList.add("tag");
 
 		this.name = document.createElement("p");
-		this.name.textContent = tag.productName;
 		this.name.classList.add("name");
+		// If using barcodes, check length of name and trim it if it is over 63 characters to avoid overflowing
+		if (withBarcode) {
+			if (product.name.toString().length <= 63) {
+				this.name.textContent = product.name.toString();
+			} else {
+				this.name.textContent = product.name.toStringTrimmed();
+			}
+		} else {
+			this.name.textContent = product.name.toString();
+		}
 
-		// sanitize category and sub-category
-		let category = tag.category;
-		let subCategory = tag.subCategory;
+		//// sanitize category and sub-category
+		let category = product.category;
+		let subCategory = product.subCategory;
 
-		// remove all whitespace
+		// remove all whitespace - " "
 		category = category.replace(/\s/g, "-");
 		subCategory = subCategory.replace(/\s/g, "-");
 
-		// remove all ampersands
+		// remove all ampersands - "&"
 		category = category.replace("&", "and");
 		subCategory = subCategory.replace("&", "and");
 
@@ -26,8 +33,15 @@ export default class TagElement {
 
 		this.element.appendChild(this.name);
 
+		if (withBarcode) {
+			this.SKUBarcode = document.createElement("img");
+			this.SKUBarcode.id = `barcode-${product.SKU}`;
+			this.SKUBarcode.classList.add("barcode");
+			this.element.appendChild(this.SKUBarcode);
+		}
+
 		this.SKU = document.createElement("p");
-		this.SKU.textContent = tag.SKU;
+		this.SKU.textContent = product.SKU;
 		this.SKU.classList.add("sku");
 		this.element.appendChild(this.SKU);
 	}

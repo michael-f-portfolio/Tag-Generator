@@ -1,11 +1,10 @@
 import Product from "./models/Product.js";
-import Tags from "./models/Tags.js";
-import Tag from "./models/Tag.js";
 import TagElement from "./models/TagElement.js";
 
 const appContainer = document.querySelector("#app");
 let hasGenerated = false;
 let newUpload = false;
+let withBarcode = false;
 let selectedFile = "";
 
 build();
@@ -55,11 +54,7 @@ function buildImportForm(parentElement) {
 		generateTagElements(event);
 	});
 	const fileCirclePlusIcon = document.createElement("i");
-	fileCirclePlusIcon.classList.add(
-		"fa-solid",
-		"fa-xl",
-		"fa-file-circle-plus"
-	);
+	fileCirclePlusIcon.classList.add("fa-solid", "fa-xl", "fa-file-circle-plus");
 	generateButton.appendChild(fileCirclePlusIcon);
 	buttonContainer.appendChild(generateButton);
 
@@ -153,22 +148,14 @@ function createProducts(results) {
 			products.push(product);
 		}
 	}
-	createTags(products);
+	createTagElements(products);
 }
 
-function createTags(products) {
-	const tags = new Tags();
-	if (products.length > 0) {
-		products.forEach((product) => tags.appendTag(new Tag(product)));
-	}
-	createTagElements(tags);
-}
-
-function createTagElements(tags) {
+function createTagElements(products) {
 	const tagElements = [];
-	if (tags.entries.length > 0) {
-		tags.entries.forEach((tag) => {
-			tagElements.push(new TagElement(tag));
+	if (products.length > 0) {
+		products.forEach((product) => {
+			tagElements.push(new TagElement(product, withBarcode));
 		});
 	}
 	addTagElementsToDOM(tagElements);
@@ -182,6 +169,22 @@ function addTagElementsToDOM(tagElements) {
 			tagContainer.appendChild(tagElement.element);
 		});
 		appContainer.appendChild(tagContainer);
+		// UI Toggle
+		if (withBarcode) {
+			tagContainer.childNodes.forEach((childNode) => {
+				const img = childNode.querySelector("img");
+				JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
+					format: "ITF",
+					height: 25,
+					width: 1,
+					fontSize: 14,
+					margin: 1,
+					marginTop: 5,
+					textMargin: 0,
+					displayValue: false,
+				});
+			});
+		}
 		hasGenerated = true;
 	} else {
 		hasGenerated = false;
