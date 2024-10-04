@@ -55,11 +55,7 @@ function buildImportForm(parentElement) {
 		generateTagElements(event);
 	});
 	const fileCirclePlusIcon = document.createElement("i");
-	fileCirclePlusIcon.classList.add(
-		"fa-solid",
-		"fa-xl",
-		"fa-file-circle-plus"
-	);
+	fileCirclePlusIcon.classList.add("fa-solid", "fa-xl", "fa-file-circle-plus");
 	generateButton.appendChild(fileCirclePlusIcon);
 	buttonContainer.appendChild(generateButton);
 

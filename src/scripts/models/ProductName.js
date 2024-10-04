@@ -25,9 +25,7 @@ export default class ProductName {
 		// Any characters before the first whitespace is the Producer Code
 		this.producerCode = nameSplit[0].substr(0, nameSplit[0].indexOf(" "));
 		// Anything past the Producer Code and before the hyphen ("-") is the Product Info
-		this.productInfo = nameSplit[0]
-			.substr(nameSplit[0].indexOf(" "))
-			.trim();
+		this.productInfo = nameSplit[0].substr(nameSplit[0].indexOf(" ")).trim();
 		// Anything past the hyphen ("-") is the Brand Name.
 		this.brandName = nameSplit[1].trim();
 	}
@@ -38,17 +36,15 @@ export default class ProductName {
 
 	toStringTrimmed() {
 		// Get the total length of the toString
-		let stringToTrim = this.productInfo;
+		let trimmedProductInfo = this.productInfo;
 
 		// trim enough of the product info until toString.length <= 63
-
-		while (
-			`${this.producerCode} ${stringToTrim}... - ${this.brandName}`
-				.length > 59
-		) {
-			stringToTrim = stringToTrim.substr(0, stringToTrim.length - 1);
+		while (`${this.producerCode} ${trimmedProductInfo}... - ${this.brandName}`.length > 59) {
+			trimmedProductInfo = trimmedProductInfo.substr(0, trimmedProductInfo.length - 1);
 		}
 
-		return `${this.producerCode} ${stringToTrim}... - ${this.brandName}`;
+		trimmedProductInfo = trimmedProductInfo.trim();
+
+		return `${this.producerCode} ${trimmedProductInfo}... - ${this.brandName}`;
 	}
 }
