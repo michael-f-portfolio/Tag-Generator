@@ -1,11 +1,10 @@
 import Product from "./models/Product.js";
-import Tags from "./models/Tags.js";
-import Tag from "./models/Tag.js";
 import TagElement from "./models/TagElement.js";
 
 const appContainer = document.querySelector("#app");
 let hasGenerated = false;
 let newUpload = false;
+let withBarcode = false;
 let selectedFile = "";
 
 build();
@@ -149,22 +148,14 @@ function createProducts(results) {
 			products.push(product);
 		}
 	}
-	createTags(products);
+	createTagElements(products);
 }
 
-function createTags(products) {
-	const tags = new Tags();
-	if (products.length > 0) {
-		products.forEach((product) => tags.appendTag(new Tag(product)));
-	}
-	createTagElements(tags);
-}
-
-function createTagElements(tags) {
+function createTagElements(products) {
 	const tagElements = [];
-	if (tags.entries.length > 0) {
-		tags.entries.forEach((tag) => {
-			tagElements.push(new TagElement(tag));
+	if (products.length > 0) {
+		products.forEach((product) => {
+			tagElements.push(new TagElement(product, withBarcode));
 		});
 	}
 	addTagElementsToDOM(tagElements);
@@ -179,7 +170,6 @@ function addTagElementsToDOM(tagElements) {
 		});
 		appContainer.appendChild(tagContainer);
 		// UI Toggle
-		const withBarcode = false;
 		if (withBarcode) {
 			tagContainer.childNodes.forEach((childNode) => {
 				const img = childNode.querySelector("img");
