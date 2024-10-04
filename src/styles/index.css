@@ -102,7 +102,7 @@ html {
 	position: relative;
 }
 
-/** App  */
+/**** App  */
 div#app {
 	width: 100%;
 	margin: 0;
@@ -143,20 +143,21 @@ header form input[type="file"] {
 	width: 400px;
 }
 
+div.buttons button,
 header form input[type="file"]::file-selector-button {
 	color: var(--slate-200);
 	background-color: var(--blue-800);
 	border-radius: 8px;
 	padding: 8px 16px;
+}
+
+header form input[type="file"]::file-selector-button {
 	margin: 0 8px 0 0;
 }
 
+div.buttons button:hover,
 header form input[type="file"]::file-selector-button:hover {
 	background-color: var(--blue-600);
-}
-
-button.options-btn:hover {
-	cursor: not-allowed;
 }
 
 i {
@@ -165,6 +166,50 @@ i {
 
 i:hover {
 	color: var(--blue-600);
+}
+
+/** Options Modal  */
+dialog#optionsModal {
+	height: 200px;
+	width: 300px;
+	padding: 0;
+	border: 2px solid var(--slate-800);
+}
+
+div#optionsContainer {
+	height: 100%;
+	width: 100%;
+}
+
+form#optionsForm {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+form#optionsForm label {
+	width: 100%;
+	padding-left: 10px;
+}
+
+form#optionsForm input[type="checkbox"] {
+	margin-right: 8px;
+}
+
+#optionsForm h3 {
+	width: 100%;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: var(--slate-800);
+	color: var(--slate-200);
+}
+
+div.buttons button {
+	margin-bottom: 8px;
 }
 
 /** Generator */
@@ -176,7 +221,7 @@ p {
 }
 
 #tag-container {
-	margin: 80px 0 0 0;
+	margin: 80px 0 16px 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -240,6 +285,19 @@ p.category-Oils-and-Caps {
 	background-color: rgba(255, 183, 88, 0.5);
 }
 
+/* Footer */
+footer {
+	/* position: absolute; */
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--slate-300);
+	min-height: 50px;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
 @media print {
 	@page {
 		margin: 0.1in;
