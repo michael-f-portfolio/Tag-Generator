@@ -11,7 +11,7 @@ TODO:
 4. ~~Separate Infused PR from Non-Infused~~
 5. Sort flower by size (3.5g, 7g, 14g, 15g, 28g)
 6. ~~Get colors for category highlighting~~
-7. Possibly add barcode option (although scanning has never been used in my experience)
+7. ~~Possibly add barcode option (although scanning has never been used in my experience)~~
 8. Test with 3 and 4 line product names (aka very long product names)
 9. ~~Add a print button~~
 10. ~~Add a header~~
