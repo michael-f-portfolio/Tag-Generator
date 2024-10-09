@@ -103,42 +103,12 @@ function generateTagElements(event) {
 		newUpload = false;
 		readFileInput(event);
 	}
-}
 
-/**
- * Reads the file input and sends it to the parser.
- * @param {Event} event
- */
-function readFileInput(event) {
-	const fileInput = event.currentTarget.form[0].files[0];
-	if (fileInput !== null && fileInput !== undefined) {
-		let reader = new FileReader();
-		reader.readAsText(fileInput);
-		reader.onload = () => {
-			parsePurchaseOrderCSV(reader.result);
-		};
-	} else {
-		console.log("no file");
-		hasGenerated = false;
-	}
-}
-
-/**
- * Parses a purchase order based on the following CSV structure:
- * 0,   1,    2,                3,        4,           5,          6,          7,        8
- * Sku, Name, PackageReference, Category, Subcategory, OrderedQty, CurrentQty, UnitCost, Total Cost
- * @param {ArrayBuffer} fileInputResult
- */
-function parsePurchaseOrderCSV(fileInputResult) {
-	if (fileInputResult.length > 0) {
-		Papa.parse(fileInputResult, {
-			complete: (results) => {
-				createProducts(results);
-			},
-		});
-	} else {
-		console.log("no data");
-		hasGenerated = false;
+async function handleGenerateTags(files) {
+	const tagContainer = await tagElementGenerator.generateTags(files);
+	if (!tagElementGenerator.hasGenerated) {
+		appContainer.append(tagContainer);
+		tagElementGenerator.hasGenerated = true;
 	}
 }
 
