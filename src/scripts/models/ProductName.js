@@ -1,5 +1,3 @@
-import ProductInfo from "./ProductInfo.js";
-
 /**
  * A class representing the separate pieces of information that a product's name contains.
  * This includes, in order:

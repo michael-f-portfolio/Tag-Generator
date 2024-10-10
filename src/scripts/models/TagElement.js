@@ -1,19 +1,22 @@
 export default class TagElement {
-	constructor(product, withBarcode) {
+	constructor(product, withBarcodes) {
+		/**
+		 * The actual HTMLDivElement to be added to the DOM.
+		 */
 		this.element = document.createElement("div");
 		this.element.classList.add("tag");
 
-		this.name = document.createElement("p");
-		this.name.classList.add("name");
+		const name = document.createElement("p");
+		name.classList.add("name");
 		// If using barcodes, check length of name and trim it if it is over 63 characters to avoid overflowing
-		if (withBarcode) {
+		if (withBarcodes) {
 			if (product.name.toString().length <= 63) {
-				this.name.textContent = product.name.toString();
+				name.textContent = product.name.toString();
 			} else {
-				this.name.textContent = product.name.toStringTrimmed();
+				name.textContent = product.name.toStringTrimmed();
 			}
 		} else {
-			this.name.textContent = product.name.toString();
+			name.textContent = product.name.toString();
 		}
 
 		//// sanitize category and sub-category
@@ -28,21 +31,19 @@ export default class TagElement {
 		category = category.replace("&", "and");
 		subCategory = subCategory.replace("&", "and");
 
-		this.name.classList.add(`category-${category}`);
-		this.name.classList.add(`subCategory-${subCategory}`);
+		name.classList.add(`category-${category}`);
+		name.classList.add(`subCategory-${subCategory}`);
 
-		this.element.appendChild(this.name);
+		this.element.appendChild(name);
 
-		if (withBarcode) {
-			this.SKUBarcode = document.createElement("img");
-			this.SKUBarcode.id = `barcode-${product.SKU}`;
-			this.SKUBarcode.classList.add("barcode");
-			this.element.appendChild(this.SKUBarcode);
-		}
+		const SKUBarcode = document.createElement("img");
+		SKUBarcode.id = `barcode-${product.SKU}`;
+		SKUBarcode.classList.add("barcode");
+		this.element.appendChild(SKUBarcode);
 
-		this.SKU = document.createElement("p");
-		this.SKU.textContent = product.SKU;
-		this.SKU.classList.add("sku");
-		this.element.appendChild(this.SKU);
+		const SKU = document.createElement("p");
+		SKU.textContent = product.SKU;
+		SKU.classList.add("sku");
+		this.element.appendChild(SKU);
 	}
 }
