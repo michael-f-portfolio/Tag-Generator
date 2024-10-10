@@ -86,6 +86,7 @@ function buildOptionsModal() {
 function handleSetOptions(event) {
 	const options = {
 		withBarcodes: event.target.form.querySelector("#withBarcodes").checked,
+		withSummary: event.target.form.querySelector("#withSummary").checked,
 	};
 	tagElementGenerator.setOptions(options);
 	tagElementGenerator.newUpload = true;

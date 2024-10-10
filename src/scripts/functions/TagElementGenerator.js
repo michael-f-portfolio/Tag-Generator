@@ -29,6 +29,7 @@ export default class TagElementGenerator {
 		 */
 		this.options = {
 			withBarcodes: false,
+			withSummary: false,
 		};
 	}
 
