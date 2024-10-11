@@ -40,7 +40,7 @@ export default class TagElementGenerator {
 	async generateTags(files) {
 		const parsedData = await this.readAndParsePurchaseOrder(files);
 		const products = this.createProducts(parsedData);
-		const tagContainer = this.createTagElements(products);
+		const tagContainer = this.createTagElementContainer(products);
 		return tagContainer;
 	}
 
@@ -88,14 +88,12 @@ export default class TagElementGenerator {
 	 * @param {[Product]} products An array of products
 	 * @returns {HTMLDivElement} A div containing all the TagElements
 	 */
-	createTagElements(products) {
+	createTagElementContainer(products, withBarcodes) {
 		const tagElementContainer = document.createElement("div");
 		tagElementContainer.id = "tag-container";
 		if (products.length > 0) {
 			products.forEach((product) => {
-				tagElementContainer.appendChild(
-					new TagElement(product, this.options.withBarcodes).element
-				);
+				tagElementContainer.appendChild(new TagElement(product, withBarcodes).element);
 			});
 		}
 		return tagElementContainer;
