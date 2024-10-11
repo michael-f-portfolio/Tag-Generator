@@ -5,11 +5,11 @@
  * @returns {ParseResultObject} An Object which contains three properties: data, errors and meta.
  */
 export default function csvParser(csvStringData) {
+	let parsedData = null;
 	if (csvStringData.length > 0) {
-		var parsedData = Papa.parse(csvStringData);
+		parsedData = Papa.parse(csvStringData);
 	} else {
 		console.log("csvParser() - No Data");
-		// hasGenerated = false;
 	}
 
 	return parsedData;
