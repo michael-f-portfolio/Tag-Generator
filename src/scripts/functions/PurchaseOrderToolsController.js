@@ -1,4 +1,4 @@
-import ExportedCSVParser from "./PurchaseOrderParser.js";
+import ExportedCSVParser from "./ExportedCSVParser.js";
 import SummaryTableGenerator from "./SummaryTableGenerator.js";
 import TagElementGenerator from "./TagElementGenerator.js";
 import Products from "../models/Products.js";
