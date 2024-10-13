@@ -20,7 +20,7 @@ export default class PurchaseOrderToolsController {
 	}
 
 	async createProducts(files) {
-		this.exportedCSVParser.setFiles(files);
+		this.exportedCSVParser.setFileList(files);
 		const parsedData = await this.exportedCSVParser.parse();
 		if (parsedData) {
 			this.products.setParsedData(parsedData);
@@ -29,7 +29,8 @@ export default class PurchaseOrderToolsController {
 		}
 	}
 
-	getTagElements() {
+	async getTagElementContainer(files) {
+		await this.createProducts(files);
 		return this.tagElementGenerator.createTagElementContainer(
 			this.products.toArray,
 			this.options.withBarcodes

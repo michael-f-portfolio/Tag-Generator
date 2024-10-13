@@ -1,7 +1,7 @@
-import TagElementGenerator from "./functions/TagElementGenerator.js";
+import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsController.js";
 
 const appContainer = document.querySelector("#app");
-const tagElementGenerator = new TagElementGenerator();
+const purchaseOrderToolsController = new PurchaseOrderToolsController();
 
 build();
 
@@ -20,13 +20,6 @@ function buildImportForm(parentElement) {
 	form.id = "import-form";
 
 	const csvInput = document.createElement("input");
-	csvInput.addEventListener("change", (event) => {
-		// no files have attempted to be uploaded
-		tagElementGenerator.newUpload =
-			tagElementGenerator.selectedFile !== "" &&
-			tagElementGenerator.selectedFile !== event.target.value;
-		tagElementGenerator.selectedFile = event.target.value;
-	});
 	csvInput.type = "file";
 	csvInput.accept = ".csv";
 	csvInput.id = "csv-file-upload";
@@ -49,7 +42,7 @@ function buildImportForm(parentElement) {
 	generateButton.classList.add("generate-btn");
 	generateButton.addEventListener("click", (event) => {
 		event.preventDefault();
-		handleGenerateTags(event.currentTarget.form[0].files);
+		handleGenerate(event.currentTarget.form[0].files);
 	});
 	const fileCirclePlusIcon = document.createElement("i");
 	fileCirclePlusIcon.classList.add("fa-solid", "fa-xl", "fa-file-circle-plus");
@@ -60,9 +53,7 @@ function buildImportForm(parentElement) {
 	printButton.classList.add("print-btn");
 	printButton.addEventListener("click", (event) => {
 		event.preventDefault();
-		if (tagElementGenerator.hasGenerated) {
-			print();
-		}
+		print();
 	});
 	const printIcon = document.createElement("i");
 	printIcon.classList.add("fa-solid", "fa-xl", "fa-print");
@@ -88,24 +79,27 @@ function handleSetOptions(event) {
 		withBarcodes: event.target.form.querySelector("#withBarcodes").checked,
 		withSummary: event.target.form.querySelector("#withSummary").checked,
 	};
-	tagElementGenerator.setOptions(options);
-	tagElementGenerator.newUpload = true;
+	purchaseOrderToolsController.setOptions(options);
 }
 
-async function handleGenerateTags(files) {
-	const tagContainer = await tagElementGenerator.generateTags(files);
-	if (!tagElementGenerator.hasGenerated) {
-		appContainer.append(tagContainer);
-		tagElementGenerator.hasGenerated = true;
+async function handleGenerate(files) {
+	const tagContainer = await purchaseOrderToolsController.getTagElementContainer(files);
+	if (appContainer.querySelector("#tag-container")) {
+		appContainer.querySelector("#tag-container").replaceWith(tagContainer);
+	} else {
+		appContainer.appendChild(tagContainer);
 	}
-	appContainer.querySelector("#tag-container").replaceWith(tagContainer);
 	// JsBarcode requires elements to be on the DOM to be able to add the barcode images
 	// it will not work with a collection and referencing the id's
 	addBarcodes(tagContainer);
 	// Toggle visibility of barcodes based on withBarcodes flag
-	toggleBarcodes(tagContainer, tagElementGenerator.options.withBarcodes);
+	toggleBarcodes(tagContainer, purchaseOrderToolsController.options.withBarcodes);
 }
 
+/**
+ *
+ * @param {HTMLDivElement} tagContainer A DIV containing all generated TagElements.
+ */
 function addBarcodes(tagContainer) {
 	tagContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
@@ -128,3 +122,5 @@ function toggleBarcodes(tagContainer, withBarcodes) {
 		img.style.display = withBarcodes ? "inline" : "none";
 	});
 }
+
+function handleSummary() {}

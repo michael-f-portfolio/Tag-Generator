@@ -6,11 +6,11 @@ import fileInputReader from "./helpers/fileInputReader.js";
  */
 export default class ExportedCSVParser {
 	constructor() {
-		this.files = null;
+		this.fileList = null;
 	}
 
-	setFiles(files) {
-		this.files = files;
+	setFileList(fileList) {
+		this.fileList = fileList;
 	}
 
 	/**
@@ -18,21 +18,22 @@ export default class ExportedCSVParser {
 	 * @returns
 	 */
 	async parse() {
-		if (this.files) {
-			const data = await fileInputReader(files);
+		if (this.fileList) {
+			const data = await fileInputReader(this.fileList);
 			if (data) {
 				const parsedData = csvParser(data);
 				if (parsedData) {
 					return parsedData;
 				} else {
-					console.log("parsing failed");
+					console.error("Parsing failed");
 					return null;
 				}
 			} else {
 				console.error("No data received from fileInputReader");
+				return null;
 			}
 		} else {
-			console.log("No files to parse.");
+			console.error("No files to parse.");
 			return null;
 		}
 	}
