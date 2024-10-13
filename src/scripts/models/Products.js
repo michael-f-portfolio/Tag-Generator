@@ -23,9 +23,9 @@ export default class Products {
 	createProducts() {
 		if (this.parsedData) {
 			const products = [];
-			parsedData = parsedData.data.slice(15);
-			for (let i = 0; i < parsedData.length; i++) {
-				const item = parsedData[i];
+			this.parsedData = this.parsedData.data.slice(15);
+			for (let i = 0; i < this.parsedData.length; i++) {
+				const item = this.parsedData[i];
 				// PapaParse adds entries for blank spaces so we're not going to include those
 				if (item[0] !== "") {
 					const product = new Product(
@@ -43,6 +43,8 @@ export default class Products {
 				}
 			}
 			this.toArray = products;
+		} else {
+			console.error("No parsed data to create products from.");
 		}
 	}
 }
