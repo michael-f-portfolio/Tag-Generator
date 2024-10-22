@@ -12,6 +12,10 @@ export default class PurchaseOrderToolsController {
 		this.options = {
 			withBarcodes: false,
 			withSummary: false,
+			productOptions: {
+				sortEdibles: false,
+				sortVaporizers: false,
+			},
 		};
 	}
 

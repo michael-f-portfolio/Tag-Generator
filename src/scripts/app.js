@@ -1,6 +1,5 @@
 import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsController.js";
 
-const appContainer = document.querySelector("#app");
 const purchaseOrderToolsController = new PurchaseOrderToolsController();
 
 build();
@@ -78,30 +77,56 @@ function handleSetOptions(event) {
 	const options = {
 		withBarcodes: event.target.form.querySelector("#withBarcodes").checked,
 		withSummary: event.target.form.querySelector("#withSummary").checked,
+		productOptions: {
+			sortEdibles: event.target.form.querySelector("#sortEdibles").checked,
+			sortVaporizers: event.target.form.querySelector("#sortVaporizers").checked,
+		},
 	};
 	purchaseOrderToolsController.setOptions(options);
 }
 
 async function handleGenerate(files) {
-	const tagContainer = await purchaseOrderToolsController.getTagElementContainer(files);
-	if (appContainer.querySelector("#tag-container")) {
-		appContainer.querySelector("#tag-container").replaceWith(tagContainer);
+	await purchaseOrderToolsController.generate(files);
+
+	const generatorContainer = document.querySelector("#generator");
+
+	const tagElementContainer = handleTags();
+	if (tagElementContainer) {
+		if (purchaseOrderToolsController.options.withSummary) {
+			const summaryTableContainer = handleSummary();
+			generatorContainer.replaceChildren(summaryTableContainer, tagElementContainer);
+		} else {
+			generatorContainer.replaceChildren(tagElementContainer);
+		}
+		handleBarcodes(tagElementContainer);
 	} else {
-		appContainer.appendChild(tagContainer);
+		console.error("Tag generation failed");
 	}
-	// JsBarcode requires elements to be on the DOM to be able to add the barcode images
-	// it will not work with a collection and referencing the id's
-	addBarcodes(tagContainer);
+}
+
+function handleTags() {
+	return purchaseOrderToolsController.getTagElementContainer();
+}
+
+/**
+ * Handles adding barcodes to the tag elements and toggling visibility.
+ * JsBarcode requires elements to be on the DOM to be able to add the barcode images
+ * it will not work with a collection not already added to the dom.
+ * @param {HTMLDivElement} tagElementContainer
+ */
+function handleBarcodes(tagElementContainer) {
+	addBarcodes(tagElementContainer);
 	// Toggle visibility of barcodes based on withBarcodes flag
-	toggleBarcodes(tagContainer, purchaseOrderToolsController.options.withBarcodes);
+	toggleBarcodes(tagElementContainer, purchaseOrderToolsController.options.withBarcodes);
 }
 
 /**
  *
- * @param {HTMLDivElement} tagContainer A DIV containing all generated TagElements.
+ * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
+ * all generated TagElements.
  */
-function addBarcodes(tagContainer) {
-	tagContainer.childNodes.forEach((childNode) => {
+function addBarcodes(tagElementContainer) {
+	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
 			format: "ITF",
@@ -116,11 +141,19 @@ function addBarcodes(tagContainer) {
 	});
 }
 
-function toggleBarcodes(tagContainer, withBarcodes) {
-	tagContainer.childNodes.forEach((childNode) => {
+/**
+ *
+ * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
+ * all generated TagElements.
+ * @param {boolean} withBarcodes A flag which determines whether the barcodes should be visible.
+ */
+function toggleBarcodes(tagElementContainer, withBarcodes) {
+	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		img.style.display = withBarcodes ? "inline" : "none";
 	});
 }
 
-function handleSummary() {}
+function handleSummary() {
+	return purchaseOrderToolsController.getSummaryTable();
+}
