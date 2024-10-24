@@ -213,6 +213,40 @@ div.buttons button {
 }
 
 /** Generator */
+/* Summary */
+#summary-container {
+	display: flex;
+	justify-content: center;
+	margin: 80px 0 16px 0;
+}
+
+table {
+	width: 100%;
+	margin: 0px 16px 0px 16px;
+	/* max-width: 80vw; */
+}
+
+table,
+th,
+td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: start;
+}
+
+th,
+td {
+	padding: 2px 4px 2px 4px;
+}
+
+tr > th {
+	font-size: 0.7em;
+}
+
+tr > td {
+	font-size: 0.7em;
+}
+
 /* Tags */
 p {
 	text-align: center;
