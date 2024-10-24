@@ -23,10 +23,19 @@ export default class SummaryTableGenerator {
 	createSummaryTableContainer(products) {
 		const summaryTableContainer = document.createElement("div");
 		summaryTableContainer.id = "summary-container";
+		summaryTableContainer.appendChild(this.createSummaryTable(products));
+		return summaryTableContainer;
+	}
 
+	createSummaryTable(products) {
 		const summaryTable = document.createElement("table");
+		summaryTable.appendChild(this.createSummaryTableHeader());
+		summaryTable.appendChild(this.createSummaryTableBody(products));
+		return summaryTable;
+	}
 
-		// header
+	createSummaryTableHeader() {
+		const summaryTableHeader = document.createElement("thead");
 		const summaryTableHeaderRow = document.createElement("tr");
 		const summaryTableHeaderSKU = document.createElement("th");
 		summaryTableHeaderSKU.textContent = "SKU";
@@ -43,34 +52,41 @@ export default class SummaryTableGenerator {
 			summaryTableHeaderCategory,
 			summaryTableHeaderQuantity
 		);
+		summaryTableHeader.appendChild(summaryTableHeaderRow);
+		return summaryTableHeader;
+	}
 
-		summaryTable.appendChild(summaryTableHeaderRow);
+	createSummaryTableBody(products) {
+		const summaryTableBody = document.createElement("tbody");
+		products.forEach((product) =>
+			summaryTableBody.appendChild(this.createSummaryTableRow(product))
+		);
+		return summaryTableBody;
+	}
 
-		// data
-		products.forEach((product) => {
-			const summaryTableDataRow = document.createElement("tr");
-			const summaryTableDataSKU = document.createElement("td");
-			summaryTableDataSKU.classList.add("td-sku");
-			summaryTableDataSKU.textContent = product.SKU;
-			const summaryTableDataProductName = document.createElement("td");
-			summaryTableDataProductName.classList.add("td-product-name");
-			summaryTableDataProductName.textContent = product.name.toString();
-			const summaryTableDataCategory = document.createElement("td");
-			summaryTableDataCategory.classList.add("td-category");
-			summaryTableDataCategory.textContent = product.category;
-			const summaryTableDataQuantity = document.createElement("td");
-			summaryTableDataQuantity.classList.add("td-quantity");
-			summaryTableDataQuantity.textContent = product.orderedQty;
-			summaryTableDataRow.append(
-				summaryTableDataSKU,
-				summaryTableDataProductName,
-				summaryTableDataCategory,
-				summaryTableDataQuantity
-			);
-			summaryTable.appendChild(summaryTableDataRow);
-		});
+	createSummaryTableRow(product) {
+		const summaryTableDataRow = document.createElement("tr");
+		const summaryTableDataSKU = document.createElement("td");
+		summaryTableDataSKU.classList.add("td-sku");
+		summaryTableDataSKU.textContent = product.SKU;
 
-		summaryTableContainer.appendChild(summaryTable);
-		return summaryTableContainer;
+		const summaryTableDataProductName = document.createElement("td");
+		summaryTableDataProductName.classList.add("td-product-name");
+		summaryTableDataProductName.textContent = product.name.toString();
+
+		const summaryTableDataCategory = document.createElement("td");
+		summaryTableDataCategory.classList.add("td-category");
+		summaryTableDataCategory.textContent = product.category;
+
+		const summaryTableDataQuantity = document.createElement("td");
+		summaryTableDataQuantity.classList.add("td-quantity");
+		summaryTableDataQuantity.textContent = product.orderedQty;
+		summaryTableDataRow.append(
+			summaryTableDataSKU,
+			summaryTableDataProductName,
+			summaryTableDataCategory,
+			summaryTableDataQuantity
+		);
+		return summaryTableDataRow;
 	}
 }
