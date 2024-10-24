@@ -77,8 +77,81 @@ export default class Products {
 				}
 			}
 			this.toArray = products;
+			this.sortByCategoryThenProductName();
+			this.populateCategoryContainer();
 		} else {
 			console.error("No parsed data to create products from.");
 		}
+	}
+
+	sortByCategoryThenProductName() {
+		this.toArray.sort((a, b) => {
+			if (a.category.toUpperCase() === b.category.toUpperCase()) {
+				return a.name.toString().toUpperCase() < b.name.toString().toUpperCase() ? -1 : 1;
+			} else {
+				return a.category.toUpperCase() < b.category.toUpperCase() ? -1 : 1;
+			}
+		});
+	}
+
+	populateCategoryContainer() {
+		this.toArray.forEach((product) => {
+			if (product.category === "Beverages") {
+				this.sortedCategoryContainer.beverage.push(product);
+			} else if (product.category === "Concentrates") {
+				this.sortedCategoryContainer.concentrate.push(product);
+			} else if (product.category === "Edibles") {
+				if (this.options.sortEdibles) {
+					if (product.subCategory === "Chocolates") {
+						this.sortedCategoryContainer.edible.chocolate.push(product);
+					} else if (product.subCategory === "Gummies") {
+						this.sortedCategoryContainer.edible.gummy.push(product);
+					} else {
+						this.sortedCategoryContainer.other.push(product);
+					}
+				} else {
+					this.sortedCategoryContainer.edible.unsorted.push(product);
+				}
+			} else if (product.category === "Flower") {
+				if (product.name.productInfo.includes("3.5 g")) {
+					this.sortedCategoryContainer.flower.eighth.push(product);
+				} else if (product.name.productInfo.includes("7 g")) {
+					this.sortedCategoryContainer.flower.quarter.push(product);
+				} else if (product.name.productInfo.includes("14 g")) {
+					this.sortedCategoryContainer.flower.half.push(product);
+				} else if (product.name.productInfo.includes("28 g")) {
+					this.sortedCategoryContainer.flower.ounce.push(product);
+				} else {
+					this.sortedCategoryContainer.other.push(product);
+				}
+			} else if (product.category === "Pre-Rolls") {
+				if (
+					product.subCategory === "Infused Pre-Rolls" ||
+					product.subCategory === "Infused Blunts"
+				) {
+					this.sortedCategoryContainer.preroll.infused.push(product);
+				} else {
+					this.sortedCategoryContainer.preroll.nonInfused.push(product);
+				}
+			} else if (product.category === "Oils & Caps" || product.category === "Topicals") {
+				this.sortedCategoryContainer.capsuleOilTopical.push(product);
+			} else if (product.category === "Vapes") {
+				if (this.options.sortVaporizers) {
+					if (product.subCategory === "All-In-Ones") {
+						this.sortedCategoryContainer.vaporizer.disposable.push(product);
+					} else if (product.subCategory === "Pod Systems") {
+						this.sortedCategoryContainer.vaporizer.pod.push(product);
+					} else {
+						this.sortedCategoryContainer.vaporizer.cartridge.push(product);
+					}
+				} else {
+					this.sortedCategoryContainer.vaporizer.unsorted.push(product);
+				}
+			} else {
+				this.sortedCategoryContainer.other.push(product);
+			}
+		});
+
+		console.log(this.sortedCategoryContainer);
 	}
 }
