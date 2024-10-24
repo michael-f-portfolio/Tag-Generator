@@ -223,7 +223,6 @@ div.buttons button {
 table {
 	width: 100%;
 	margin: 0px 16px 0px 16px;
-	/* max-width: 80vw; */
 }
 
 table,
@@ -250,7 +249,6 @@ tr > td {
 /* Tags */
 p {
 	text-align: center;
-	/* text-justify: ; */
 	text-size-adjust: none;
 }
 
@@ -321,7 +319,6 @@ p.category-Oils-and-Caps {
 
 /* Footer */
 footer {
-	/* position: absolute; */
 	bottom: 0;
 	left: 0;
 	width: 100%;
@@ -332,6 +329,7 @@ footer {
 	min-height: 50px;
 	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
+
 @media print {
 	@page {
 		margin: 0.1in;
@@ -345,7 +343,9 @@ footer {
 		break-inside: avoid;
 	}
 
-	div#tag-container {
+	div#tag-container,
+	div#summary-container,
+	table {
 		margin: 0;
 	}
 
