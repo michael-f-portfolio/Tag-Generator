@@ -51,8 +51,7 @@ export default class Products {
 	}
 
 	/**
-	 * Accepts parsed data from a purchase order and stores it in an array as a local property.
-	 * @param {string} parsedData A string of parsed data
+	 * Accepts parsed data from a purchase order and stores in a local property as an array.
 	 */
 	createProducts() {
 		if (this.parsedData) {
