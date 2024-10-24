@@ -4,12 +4,46 @@ import Product from "./Product.js";
  * Contains a list of Products and metadata regarding the state of said products
  */
 export default class Products {
-	constructor() {
-		this.parsedData = null;
+	constructor(parsedData, options) {
+		this.parsedData = parsedData || null;
 		this.toArray = [Product];
 		this.isEmpty = this.toArray.length === 0;
-		this.isCategorized = false;
-		this.isAlphabetized = false;
+		this.sortedCategoryContainer = {
+			beverage: [],
+			concentrate: [],
+			edible: {
+				unsorted: [],
+				chocolate: [],
+				gummy: [],
+			},
+			flower: {
+				eighth: [],
+				quarter: [],
+				half: [],
+				ounce: [],
+			},
+			preroll: {
+				nonInfused: [],
+				infused: [],
+			},
+			capsuleOilTopical: [],
+			vaporizer: {
+				unsorted: [],
+				cartridge: [],
+				pod: [],
+				disposable: [],
+			},
+			other: [],
+		};
+		this.options = {
+			sortEdibles: options.sortEdibles || false,
+			sortVaporizers: options.sortVaporizers || false,
+		};
+	}
+
+	setOptions(options) {
+		this.options.sortEdibles = options.sortEdibles;
+		this.options.sortVaporizers = options.sortVaporizers;
 	}
 
 	setParsedData(parsedData) {
