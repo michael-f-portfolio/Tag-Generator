@@ -40,13 +40,13 @@ export default class TagElementContainerGenerator {
 	 */
 	createSortedTagElementContainer() {
 		// beverages
-		this.products.sortedCategoryContainer.beverage.forEach((product) => {
+		this.products.sortedCategoryContainer.beverages.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		// concentrates
-		this.products.sortedCategoryContainer.concentrate.forEach((product) => {
+		this.products.sortedCategoryContainer.concentrates.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
@@ -54,20 +54,20 @@ export default class TagElementContainerGenerator {
 		// edibles
 		if (this.products.options.sortEdibles) {
 			// optional chocolate
-			this.products.sortedCategoryContainer.edible.chocolate.forEach((product) => {
+			this.products.sortedCategoryContainer.edibles.chocolates.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
 			});
 			// optional gummy
-			this.products.sortedCategoryContainer.edible.gummy.forEach((product) => {
+			this.products.sortedCategoryContainer.edibles.gummies.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
 			});
 		} else {
 			// or all unsorted
-			this.products.sortedCategoryContainer.edible.unsorted.forEach((product) => {
+			this.products.sortedCategoryContainer.edibles.unsorted.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
@@ -75,71 +75,71 @@ export default class TagElementContainerGenerator {
 		}
 		// flower
 		//// eighth
-		this.products.sortedCategoryContainer.flower.eighth.forEach((product) => {
+		this.products.sortedCategoryContainer.flower.eighths.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		//// quarter
-		this.products.sortedCategoryContainer.flower.quarter.forEach((product) => {
+		this.products.sortedCategoryContainer.flower.quarters.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		//// half
-		this.products.sortedCategoryContainer.flower.half.forEach((product) => {
+		this.products.sortedCategoryContainer.flower.halves.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		//// ounce
-		this.products.sortedCategoryContainer.flower.ounce.forEach((product) => {
+		this.products.sortedCategoryContainer.flower.ounces.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		// prerolls
 		//// non infused
-		this.products.sortedCategoryContainer.preroll.nonInfused.forEach((product) => {
+		this.products.sortedCategoryContainer.prerolls.nonInfused.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		//// infused
-		this.products.sortedCategoryContainer.preroll.infused.forEach((product) => {
+		this.products.sortedCategoryContainer.prerolls.infused.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		// capsules, oils and topicals
-		this.products.sortedCategoryContainer.capsuleOilTopical.forEach((product) => {
+		this.products.sortedCategoryContainer.capsulesOilsTopicals.forEach((product) => {
 			this.tagElementContainer.appendChild(
 				new TagElement(product, this.withBarcodes).element
 			);
 		});
 		// vaporizers
 		if (this.products.options.sortVaporizers) {
-			// optional cartridge
-			this.products.sortedCategoryContainer.vaporizer.cartridge.forEach((product) => {
+			// optional cartridges
+			this.products.sortedCategoryContainer.vaporizers.cartridges.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
 			});
 			// optional pods
-			this.products.sortedCategoryContainer.vaporizer.pod.forEach((product) => {
+			this.products.sortedCategoryContainer.vaporizers.pods.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
 			});
 			// optional disposable
-			this.products.sortedCategoryContainer.vaporizer.disposable.forEach((product) => {
+			this.products.sortedCategoryContainer.vaporizers.disposables.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);
 			});
 		} else {
 			// or all unsorted
-			this.products.sortedCategoryContainer.vaporizer.unsorted.forEach((product) => {
+			this.products.sortedCategoryContainer.vaporizers.unsorted.forEach((product) => {
 				this.tagElementContainer.appendChild(
 					new TagElement(product, this.withBarcodes).element
 				);

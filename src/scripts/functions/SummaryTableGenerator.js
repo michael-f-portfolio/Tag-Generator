@@ -40,35 +40,35 @@ export default class SummaryTableGenerator {
 
 		// beverages
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Beverages", this.products.sortedCategoryContainer.beverage)
+			this.createCategoryTable("Beverages", this.products.sortedCategoryContainer.beverages)
 		);
 
 		// concentrates
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
 				"Concentrates",
-				this.products.sortedCategoryContainer.concentrate
+				this.products.sortedCategoryContainer.concentrates
 			)
 		);
 
 		// edibles
 		if (this.products.options.sortEdibles) {
-			// optional chocolate
-			if (this.products.sortedCategoryContainer.edible.chocolate.length > 0) {
+			// optional chocolates
+			if (this.products.sortedCategoryContainer.edibles.chocolates.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
 						"Chocolates",
-						this.products.sortedCategoryContainer.edible.chocolate
+						this.products.sortedCategoryContainer.edibles.chocolates
 					)
 				);
 			}
 
-			// optional gummy
-			if (this.products.sortedCategoryContainer.edible.gummy.length > 0) {
+			// optional gummies
+			if (this.products.sortedCategoryContainer.edibles.gummies.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
 						"Gummies",
-						this.products.sortedCategoryContainer.edible.gummy
+						this.products.sortedCategoryContainer.edibles.gummies
 					)
 				);
 			}
@@ -77,81 +77,84 @@ export default class SummaryTableGenerator {
 			categoryTableContainer.appendChild(
 				this.createCategoryTable(
 					"Edibles",
-					this.products.sortedCategoryContainer.edible.unsorted
+					this.products.sortedCategoryContainer.edibles.unsorted
 				)
 			);
 		}
 		// flower
 		//// eighth
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Eighths", this.products.sortedCategoryContainer.flower.eighth)
+			this.createCategoryTable(
+				"Eighths",
+				this.products.sortedCategoryContainer.flower.eighths
+			)
 		);
 		//// quarter
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
 				"Quarters",
-				this.products.sortedCategoryContainer.flower.quarter
+				this.products.sortedCategoryContainer.flower.quarters
 			)
 		);
 		//// half
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Halfs", this.products.sortedCategoryContainer.flower.half)
+			this.createCategoryTable("Halfs", this.products.sortedCategoryContainer.flower.halves)
 		);
 		//// ounce
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Ounces", this.products.sortedCategoryContainer.flower.ounce)
+			this.createCategoryTable("Ounces", this.products.sortedCategoryContainer.flower.ounces)
 		);
 		// prerolls
 		//// non infused
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
 				"Non-Infused Pre-Rolls",
-				this.products.sortedCategoryContainer.preroll.nonInfused
+				this.products.sortedCategoryContainer.prerolls.nonInfused
 			)
 		);
 		//// infused
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
 				"Infused Pre-Rolls",
-				this.products.sortedCategoryContainer.preroll.infused
+				this.products.sortedCategoryContainer.prerolls.infused
 			)
 		);
 		// capsules, oils and topicals
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
 				"Capsules, Oils and Topicals",
-				this.products.sortedCategoryContainer.capsuleOilTopical
+				this.products.sortedCategoryContainer.capsulesOilsTopicals
 			)
 		);
 
 		// vaporizers
 		if (this.products.options.sortVaporizers) {
-			// optional cartridge
-			if (this.products.sortedCategoryContainer.vaporizer.cartridge.length > 0) {
+			// optional cartridges
+			if (this.products.sortedCategoryContainer.vaporizers.cartridges.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
 						"510 Cartridges",
-						this.products.sortedCategoryContainer.vaporizer.cartridge
+						this.products.sortedCategoryContainer.vaporizers.cartridges
 					)
 				);
 			}
 
 			// optional pods
-			if (this.products.sortedCategoryContainer.vaporizer.pod.length > 0) {
+			if (this.products.sortedCategoryContainer.vaporizers.pods.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
 						"Pods",
-						this.products.sortedCategoryContainer.vaporizer.pod
+						this.products.sortedCategoryContainer.vaporizers.pods
 					)
 				);
 			}
 
-			// optional disposable
-			if (this.products.sortedCategoryContainer.vaporizer.disposable.length > 0) {
+			// optional disposables
+			if (this.products.sortedCategoryContainer.vaporizers.disposables.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
 						"Disposables",
-						this.products.sortedCategoryContainer.vaporizer.disposable
+						this.products.sortedCategoryContainer.vaporizers.disposables
 					)
 				);
 			}

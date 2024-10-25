@@ -8,30 +8,33 @@ export default class Products {
 		this.parsedData = parsedData || null;
 		this.toArray = [Product];
 		this.isEmpty = this.toArray.length === 0;
+		/**
+		 * An object containing the pre-defined categories of different products.
+		 */
 		this.sortedCategoryContainer = {
-			beverage: [],
-			concentrate: [],
-			edible: {
+			beverages: [],
+			concentrates: [],
+			edibles: {
 				unsorted: [],
-				chocolate: [],
-				gummy: [],
+				chocolates: [],
+				gummies: [],
 			},
 			flower: {
-				eighth: [],
-				quarter: [],
-				half: [],
-				ounce: [],
+				eighths: [],
+				quarters: [],
+				halves: [],
+				ounces: [],
 			},
-			preroll: {
+			prerolls: {
 				nonInfused: [],
 				infused: [],
 			},
-			capsuleOilTopical: [],
-			vaporizer: {
+			capsulesOilsTopicals: [],
+			vaporizers: {
 				unsorted: [],
-				cartridge: [],
-				pod: [],
-				disposable: [],
+				cartridges: [],
+				pods: [],
+				disposables: [],
 			},
 			other: [],
 		};
@@ -96,30 +99,30 @@ export default class Products {
 	populateCategoryContainer() {
 		this.toArray.forEach((product) => {
 			if (product.category === "Beverages") {
-				this.sortedCategoryContainer.beverage.push(product);
+				this.sortedCategoryContainer.beverages.push(product);
 			} else if (product.category === "Concentrates") {
-				this.sortedCategoryContainer.concentrate.push(product);
+				this.sortedCategoryContainer.concentrates.push(product);
 			} else if (product.category === "Edibles") {
 				if (this.options.sortEdibles) {
 					if (product.subCategory === "Chocolates") {
-						this.sortedCategoryContainer.edible.chocolate.push(product);
+						this.sortedCategoryContainer.edibles.chocolates.push(product);
 					} else if (product.subCategory === "Gummies") {
-						this.sortedCategoryContainer.edible.gummy.push(product);
+						this.sortedCategoryContainer.edibles.gummies.push(product);
 					} else {
 						this.sortedCategoryContainer.other.push(product);
 					}
 				} else {
-					this.sortedCategoryContainer.edible.unsorted.push(product);
+					this.sortedCategoryContainer.edibles.unsorted.push(product);
 				}
 			} else if (product.category === "Flower") {
 				if (product.name.productInfo.includes("3.5 g")) {
-					this.sortedCategoryContainer.flower.eighth.push(product);
+					this.sortedCategoryContainer.flower.eighths.push(product);
 				} else if (product.name.productInfo.includes("7 g")) {
-					this.sortedCategoryContainer.flower.quarter.push(product);
+					this.sortedCategoryContainer.flower.quarters.push(product);
 				} else if (product.name.productInfo.includes("14 g")) {
-					this.sortedCategoryContainer.flower.half.push(product);
+					this.sortedCategoryContainer.flower.halves.push(product);
 				} else if (product.name.productInfo.includes("28 g")) {
-					this.sortedCategoryContainer.flower.ounce.push(product);
+					this.sortedCategoryContainer.flower.ounces.push(product);
 				} else {
 					this.sortedCategoryContainer.other.push(product);
 				}
@@ -128,23 +131,23 @@ export default class Products {
 					product.subCategory === "Infused Pre-Rolls" ||
 					product.subCategory === "Infused Blunts"
 				) {
-					this.sortedCategoryContainer.preroll.infused.push(product);
+					this.sortedCategoryContainer.prerolls.infused.push(product);
 				} else {
-					this.sortedCategoryContainer.preroll.nonInfused.push(product);
+					this.sortedCategoryContainer.prerolls.nonInfused.push(product);
 				}
 			} else if (product.category === "Oils & Caps" || product.category === "Topicals") {
-				this.sortedCategoryContainer.capsuleOilTopical.push(product);
+				this.sortedCategoryContainer.capsulesOilsTopicals.push(product);
 			} else if (product.category === "Vapes") {
 				if (this.options.sortVaporizers) {
 					if (product.subCategory === "All-In-Ones") {
-						this.sortedCategoryContainer.vaporizer.disposable.push(product);
+						this.sortedCategoryContainer.vaporizers.disposables.push(product);
 					} else if (product.subCategory === "Pod Systems") {
-						this.sortedCategoryContainer.vaporizer.pod.push(product);
+						this.sortedCategoryContainer.vaporizers.pods.push(product);
 					} else {
-						this.sortedCategoryContainer.vaporizer.cartridge.push(product);
+						this.sortedCategoryContainer.vaporizers.cartridges.push(product);
 					}
 				} else {
-					this.sortedCategoryContainer.vaporizer.unsorted.push(product);
+					this.sortedCategoryContainer.vaporizers.unsorted.push(product);
 				}
 			} else {
 				this.sortedCategoryContainer.other.push(product);
