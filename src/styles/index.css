@@ -170,7 +170,7 @@ i:hover {
 
 /** Options Modal  */
 dialog#optionsModal {
-	height: 300px;
+	height: 400px;
 	width: 400px;
 	padding: 0;
 	border: 2px solid var(--slate-800);
@@ -218,38 +218,25 @@ div.buttons button {
 
 /** Generator */
 /* Summary */
+
 #summary-container {
-	display: flex;
-	justify-content: center;
-	margin: 80px 0 16px 0;
+	/* display: flex;
+	justify-content: center; */
+	margin: 80px 16px 16px 16px;
 }
 
 table {
-	width: 100%;
-	margin: 0px 16px 0px 16px;
+	margin-bottom: 0px !important;
 }
 
-table,
-th,
-td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	text-align: start;
+caption {
+	padding-bottom: 0px;
 }
 
 th,
 td {
-	padding: 2px 4px 2px 4px;
+	font-size: 0.8em;
 }
-
-tr > th {
-	font-size: 0.7em;
-}
-
-tr > td {
-	font-size: 0.7em;
-}
-
 /* Tags */
 p {
 	text-align: center;
@@ -347,10 +334,17 @@ footer {
 		break-inside: avoid;
 	}
 
+	div#app,
+	div#generator,
 	div#tag-container,
 	div#summary-container,
+	div#category-table-container,
 	table {
 		margin: 0;
+	}
+
+	thead {
+		display: table-row-group;
 	}
 
 	header {
