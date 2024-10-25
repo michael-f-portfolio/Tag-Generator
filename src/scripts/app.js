@@ -135,7 +135,6 @@ function addBarcodes(tagElementContainer) {
 			width: 1,
 			fontSize: 14,
 			margin: 1,
-			marginTop: 5,
 			textMargin: 0,
 			displayValue: false,
 		});
