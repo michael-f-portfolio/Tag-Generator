@@ -14,7 +14,7 @@ export default class TagElement {
 		this.element.classList.add("tag");
 
 		const name = document.createElement("p");
-		name.classList.add("name");
+		name.classList.add("name", "lh-1");
 		// If using barcodes, check length of name and trim it if it is over 63 characters to avoid overflowing
 		if (withBarcodes) {
 			if (product.name.toString().length <= 63) {
@@ -50,7 +50,7 @@ export default class TagElement {
 
 		const SKU = document.createElement("p");
 		SKU.textContent = product.SKU;
-		SKU.classList.add("sku");
+		SKU.classList.add("sku", "lh-1");
 		this.element.appendChild(SKU);
 	}
 }
