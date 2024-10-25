@@ -1,3 +1,4 @@
+import Products from "../models/Products.js";
 import TagElement from "../models/TagElement.js";
 
 /**
