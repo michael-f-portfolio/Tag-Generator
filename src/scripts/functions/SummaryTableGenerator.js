@@ -57,7 +57,7 @@ export default class SummaryTableGenerator {
 			if (this.products.sortedCategoryContainer.edibles.chocolates.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
-						"Chocolates",
+						"Edibles: Chocolates",
 						this.products.sortedCategoryContainer.edibles.chocolates
 					)
 				);
@@ -67,7 +67,7 @@ export default class SummaryTableGenerator {
 			if (this.products.sortedCategoryContainer.edibles.gummies.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
-						"Gummies",
+						"Edibles: Gummies",
 						this.products.sortedCategoryContainer.edibles.gummies
 					)
 				);
@@ -85,37 +85,43 @@ export default class SummaryTableGenerator {
 		//// eighth
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Eighths",
+				"Flower: Eighths",
 				this.products.sortedCategoryContainer.flower.eighths
 			)
 		);
 		//// quarter
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Quarters",
+				"Flower: Quarters",
 				this.products.sortedCategoryContainer.flower.quarters
 			)
 		);
 		//// half
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Halfs", this.products.sortedCategoryContainer.flower.halves)
+			this.createCategoryTable(
+				"Flower: Halves",
+				this.products.sortedCategoryContainer.flower.halves
+			)
 		);
 		//// ounce
 		categoryTableContainer.appendChild(
-			this.createCategoryTable("Ounces", this.products.sortedCategoryContainer.flower.ounces)
+			this.createCategoryTable(
+				"Flower: Ounces",
+				this.products.sortedCategoryContainer.flower.ounces
+			)
 		);
 		// prerolls
 		//// non infused
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Non-Infused Pre-Rolls",
+				"Pre-Rolls: Non-Infused",
 				this.products.sortedCategoryContainer.prerolls.nonInfused
 			)
 		);
 		//// infused
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Infused Pre-Rolls",
+				"Pre-Rolls: Infused",
 				this.products.sortedCategoryContainer.prerolls.infused
 			)
 		);
@@ -133,7 +139,7 @@ export default class SummaryTableGenerator {
 			if (this.products.sortedCategoryContainer.vaporizers.cartridges.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
-						"510 Cartridges",
+						"Vaporizers: 510 Cartridges",
 						this.products.sortedCategoryContainer.vaporizers.cartridges
 					)
 				);
@@ -143,7 +149,7 @@ export default class SummaryTableGenerator {
 			if (this.products.sortedCategoryContainer.vaporizers.pods.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
-						"Pods",
+						"Vaporizers: Pods",
 						this.products.sortedCategoryContainer.vaporizers.pods
 					)
 				);
@@ -153,7 +159,7 @@ export default class SummaryTableGenerator {
 			if (this.products.sortedCategoryContainer.vaporizers.disposables.length > 0) {
 				categoryTableContainer.appendChild(
 					this.createCategoryTable(
-						"Disposables",
+						"Vaporizers: Disposables",
 						this.products.sortedCategoryContainer.vaporizers.disposables
 					)
 				);
@@ -163,7 +169,7 @@ export default class SummaryTableGenerator {
 			categoryTableContainer.appendChild(
 				this.createCategoryTable(
 					"Vaporizers",
-					this.products.sortedCategoryContainer.vaporizer.unsorted
+					this.products.sortedCategoryContainer.vaporizers.unsorted
 				)
 			);
 		}
@@ -180,6 +186,7 @@ export default class SummaryTableGenerator {
 
 	createCategoryTable(categoryName, category) {
 		const summaryTable = document.createElement("table");
+		summaryTable.classList.add("table", "table-sm", "caption-top");
 		const tableCaption = document.createElement("caption");
 		tableCaption.textContent = categoryName;
 		summaryTable.appendChild(tableCaption);
@@ -202,6 +209,7 @@ export default class SummaryTableGenerator {
 
 	createSummaryTable() {
 		const summaryTable = document.createElement("table");
+		summaryTable.classList.add("table", "table-sm");
 		summaryTable.appendChild(this.createSummaryTableHeader());
 		summaryTable.appendChild(this.createSummaryTableBody());
 		return summaryTable;
@@ -209,14 +217,19 @@ export default class SummaryTableGenerator {
 
 	createSummaryTableHeader() {
 		const summaryTableHeader = document.createElement("thead");
+		summaryTableHeader.classList.add("table-light");
 		const summaryTableHeaderRow = document.createElement("tr");
 		const summaryTableHeaderSKU = document.createElement("th");
+		summaryTableHeaderSKU.classList.add("col-sm-1");
 		summaryTableHeaderSKU.textContent = "SKU";
 		const summaryTableHeaderProductName = document.createElement("th");
+		summaryTableHeaderProductName.classList.add("col-sm-9");
 		summaryTableHeaderProductName.textContent = "Product Name";
 		const summaryTableHeaderCategory = document.createElement("th");
+		summaryTableHeaderCategory.classList.add("col-sm-1");
 		summaryTableHeaderCategory.textContent = "Category";
 		const summaryTableHeaderQuantity = document.createElement("th");
+		summaryTableHeaderQuantity.classList.add("col-sm-1");
 		summaryTableHeaderQuantity.textContent = "Quantity";
 
 		summaryTableHeaderRow.append(
