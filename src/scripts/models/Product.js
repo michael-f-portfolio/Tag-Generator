@@ -17,7 +17,7 @@ export default class Product {
 		this.packageReference = packageReference;
 		this.category = category;
 		this.subCategory = subCategory;
-		this.orderedQty = orderedQty;
+		this.orderedQty = orderedQty.substring(0, orderedQty.indexOf("."));
 		this.currentQty = currentQty;
 		this.unitCost = unitCost;
 		this.totalCost = totalCost;

@@ -5,7 +5,7 @@
 export default async function fileInputReader(files) {
 	const [file] = files;
 	if (!file) {
-		console.log("fileInputReader() - No Files");
+		// console.log("fileInputReader() - No Files");
 		return;
 	}
 	return await file.text();
