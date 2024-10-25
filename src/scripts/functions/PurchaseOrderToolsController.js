@@ -46,8 +46,7 @@ export default class PurchaseOrderToolsController {
 			this.products = new Products(parsedData, this.options.productOptions);
 			this.products.createProducts();
 		} else {
-			throw new Error("No parsed data to create products from.");
-			// console.error("No parsed data to create products from.");
+			console.error("No parsed data to create products from.");
 		}
 	}
 
