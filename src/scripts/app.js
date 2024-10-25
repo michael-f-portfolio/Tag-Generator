@@ -77,6 +77,7 @@ function handleSetOptions(event) {
 	const options = {
 		withBarcodes: event.target.form.querySelector("#withBarcodes").checked,
 		withSummary: event.target.form.querySelector("#withSummary").checked,
+		withCategoryTables: event.target.form.querySelector("#withCategoryTables").checked,
 		productOptions: {
 			sortEdibles: event.target.form.querySelector("#sortEdibles").checked,
 			sortVaporizers: event.target.form.querySelector("#sortVaporizers").checked,
@@ -155,5 +156,5 @@ function toggleBarcodes(tagElementContainer, withBarcodes) {
 }
 
 function handleSummary() {
-	return purchaseOrderToolsController.getSummaryTable();
+	return purchaseOrderToolsController.getSummaryTableContainer();
 }

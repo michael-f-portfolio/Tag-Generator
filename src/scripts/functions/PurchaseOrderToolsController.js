@@ -6,7 +6,8 @@ import Products from "../models/Products.js";
 export default class PurchaseOrderToolsController {
 	constructor() {
 		this.exportedCSVParser = new ExportedCSVParser();
-		this.summaryTableGenerator = new SummaryTableGenerator();
+		this.summaryTableGenerator = null;
+		this.tagElementGenerator = null;
 		this.products = null;
 		this.tagElementContainer = null;
 		this.summaryTableContainer = null;
@@ -18,6 +19,7 @@ export default class PurchaseOrderToolsController {
 		this.options = {
 			withBarcodes: false,
 			withSummary: false,
+			withCategoryTables: false,
 			productOptions: {
 				sortEdibles: false,
 				sortVaporizers: false,
@@ -30,14 +32,10 @@ export default class PurchaseOrderToolsController {
 	}
 
 	async generate(files) {
-		try {
-			await this.createProducts(files);
-			this.createTagElementContainer();
-			if (this.options.withSummary) {
-				this.createSummaryTable();
-			}
-		} catch (error) {
-			console.error(error.message);
+		await this.createProducts(files);
+		this.createTagElementContainer();
+		if (this.options.withSummary) {
+			this.createSummaryTableContainer();
 		}
 	}
 
@@ -69,13 +67,17 @@ export default class PurchaseOrderToolsController {
 		return this.tagElementGenerator.getTagElementContainer();
 	}
 
-	createSummaryTable() {
+	createSummaryTableContainer() {
+		this.summaryTableGenerator = new SummaryTableGenerator(
+			this.products,
+			this.options.withCategoryTables
+		);
 		this.summaryTableContainer = this.summaryTableGenerator.createSummaryTableContainer(
 			this.products.toArray
 		);
 	}
 
-	getSummaryTable() {
+	getSummaryTableContainer() {
 		return this.summaryTableContainer;
 	}
 }

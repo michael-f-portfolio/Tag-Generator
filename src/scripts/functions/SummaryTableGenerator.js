@@ -18,7 +18,10 @@
  *      b. Optional SubCategory Sort - All In Ones/Disposables
  */
 export default class SummaryTableGenerator {
-	constructor() {}
+	constructor(products, withCategoryTables) {
+		this.products = products;
+		this.withCategoryTables = withCategoryTables;
+	}
 
 	createSummaryTableContainer(products) {
 		const summaryTableContainer = document.createElement("div");

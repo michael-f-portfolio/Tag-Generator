@@ -190,6 +190,10 @@ form#optionsForm {
 	align-items: center;
 }
 
+form#optionsForm h2 {
+	width: 100%;
+}
+
 form#optionsForm label {
 	width: 100%;
 	padding-left: 10px;
