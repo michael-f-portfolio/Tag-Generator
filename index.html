@@ -5,49 +5,169 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Tag Generator</title>
 	</head>
-	<body>
-		<header>
-			<h2>PO TAG GENERATOR</h2>
-		</header>
-		<main id="app">
-			<dialog id="optionsModal">
-				<div id="optionsContainer">
-					<form id="optionsForm">
-						<h3>OPTIONS</h3>
-						<h4>Tag Options</h4>
-						<label for="withBarcodes">
-							<input type="checkbox" id="withBarcodes" autocomplete="off" />
-							Show Barcodes
-						</label>
+	<body class="d-flex flex-column min-vh-100">
+		<div class="container d-print-none">
+			<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+				<a
+					href="/"
+					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+				>
+					<svg class="bi me-2" width="40" height="32">
+						<use xlink:href="#bootstrap" />
+					</svg>
+					<span class="fs-4">Tag Generator</span>
+				</a>
+			</header>
+		</div>
 
-						<h4>Sort Options</h4>
-						<label for="sortEdibles">
-							<input type="checkbox" id="sortEdibles" autocomplete="off" />
-							Sort Edibles by Gummy and Chocolate
-						</label>
-						<label for="sortVaporizers">
-							<input type="checkbox" id="sortVaporizers" autocomplete="off" />
-							Sort Vaporizers by Cartridge, Pod and Disposable
-						</label>
-						<h4>Summary Table Options</h4>
-						<label for="withSummary">
-							<input type="checkbox" id="withSummary" autocomplete="off" />
-							Append Summary
-						</label>
-						<label for="withCategoryTables">
-							<input type="checkbox" id="withCategoryTables" autocomplete="off" />
-							Separate Categories into their own tables
-						</label>
-						<div class="buttons">
-							<button type="submit" id="optionsSubmit">Save</button>
-							<button value="cancel" formmethod="dialog">Cancel</button>
+		<main>
+			<div
+				class="reset-form-container container d-flex justify-content-center w-50 bg-light bg-gradient border shadow-sm rounded d-none d-print-none"
+			>
+				<button class="print-btn btn btn-primary btn-sm w-25 m-2">Print</button>
+				<button class="clear-reset-btn btn btn-secondary btn-sm w-25 m-2">Reset</button>
+			</div>
+			<div
+				class="container d-flex flex-column align-items-center w-50 bg-light bg-gradient border shadow-sm rounded d-print-none"
+				id="generateFormContainer"
+			>
+				<form id="import-form">
+					<div class="d-flex flex-column align-items-center">
+						<h2 class="m-3">Generate Tags</h2>
+						<div class="input-group mb-2">
+							<input
+								type="file"
+								accept=".csv"
+								class="form-control"
+								id="csvFileUpload"
+								autocomplete="off"
+							/>
+							<label class="input-group-text" for="inputGroupFile02">Upload</label>
 						</div>
-					</form>
+						<div class="d-flex flex-column align-items-center w-100">
+							<h5>Customize Tags</h5>
+							<div class="d-flex flex-column w-100">
+								<div class="form-check form-switch align-self-start">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										role="switch"
+										id="withBarcodes"
+										autocomplete="off"
+									/>
+									<label class="form-check-label" for="withBarcodes">
+										Show Barcodes
+									</label>
+								</div>
+								<div class="form-check form-switch align-self-start">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										role="switch"
+										id="displayCategoryColors"
+										autocomplete="off"
+										checked
+										disabled
+									/>
+									<label class="form-check-label" for="displayCategoryColors">
+										Display Category Colors
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex flex-column align-items-center w-100">
+							<h5>Sort Options</h5>
+							<div class="form-check form-switch align-self-start">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									role="switch"
+									id="sortEdibles"
+									autocomplete="off"
+								/>
+								<label class="form-check-label" for="sortEdibles">
+									Sort Edibles by Gummy and Chocolate
+								</label>
+							</div>
+							<div class="form-check form-switch align-self-start">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									role="switch"
+									id="sortVaporizers"
+									autocomplete="off"
+								/>
+								<label class="form-check-label" for="sortVaporizers">
+									Sort Vaporizers by Cartridge, Pod and Disposable
+								</label>
+							</div>
+						</div>
+						<div class="d-flex flex-column align-items-center w-100">
+							<h5>Summary Table Options</h5>
+							<div class="form-check form-switch align-self-start">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									role="switch"
+									id="withSummary"
+									autocomplete="off"
+								/>
+								<label class="form-check-label" for="withSummary">
+									Append Summary
+								</label>
+							</div>
+							<div class="form-check form-switch align-self-start">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									role="switch"
+									id="withCategoryTables"
+									autocomplete="off"
+								/>
+								<label class="form-check-label" for="withCategoryTables">
+									Separate Categories into their own tables
+								</label>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center p-2 m-2 w-100">
+							<button
+								type="submit"
+								id="generateBtn"
+								class="btn btn-primary btn-sm w-25 m-2"
+							>
+								Generate
+							</button>
+							<button
+								value="cancel"
+								formmethod="dialog"
+								id="optionsResetBtn"
+								class="btn btn-secondary btn-sm w-25 m-2"
+							>
+								Reset
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="d-flex justify-content-center d-none d-print-none" id="spinnerContainer">
+				<div class="spinner-border text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
 				</div>
-			</dialog>
+			</div>
 			<div id="generator"></div>
+			<div
+				class="reset-form-container container d-flex justify-content-center w-50 bg-light bg-gradient border shadow-sm rounded d-none d-print-none"
+			>
+				<button class="print-btn btn btn-primary btn-sm w-25 m-2">Print</button>
+				<button class="clear-reset-btn btn btn-secondary btn-sm w-25 m-2">Reset</button>
+			</div>
 		</main>
-		<footer>© Michael Fortier 2024</footer>
+		<div class="container d-print-none mt-auto">
+			<footer class="footer py-3 my-4">
+				<ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+				<p class="text-center text-body-secondary">&copy; 2024 Michael Fortier</p>
+			</footer>
+		</div>
 	</body>
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -63,7 +183,7 @@
 	<script src="src/scripts/libs/papaparse.js"></script>
 	<script src="src/scripts/libs/JsBarcode.all.js"></script>
 	<script src="https://kit.fontawesome.com/4813670f9d.js" crossorigin="anonymous"></script>
-	<script type="module" src="./src/scripts/app.js"></script>
 	<link rel="stylesheet" href="src/styles/normalize.css" />
 	<link rel="stylesheet" href="src/styles/index.css" />
+	<script type="module" src="src/scripts/app.js"></script>
 </html>
