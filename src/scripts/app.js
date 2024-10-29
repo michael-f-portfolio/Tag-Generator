@@ -2,93 +2,115 @@ import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsControll
 
 const purchaseOrderToolsController = new PurchaseOrderToolsController();
 
-build();
+addFormEventListeners();
 
-function build() {
-	buildHeader();
+function addFormEventListeners() {
+	addPrintFormEventListeners();
+	addGenerateFormEventListeners();
 }
 
-function buildHeader() {
-	const header = document.querySelector("header");
-	buildImportForm(header);
-	buildOptionsModal();
-}
-
-function buildImportForm(parentElement) {
-	const form = document.createElement("form");
-	form.id = "import-form";
-
-	const csvInput = document.createElement("input");
-	csvInput.type = "file";
-	csvInput.accept = ".csv";
-	csvInput.id = "csv-file-upload";
-	form.appendChild(csvInput);
-
-	const buttonContainer = document.createElement("div");
-
-	const showOptionsButton = document.createElement("button");
-	showOptionsButton.classList.add("options-btn");
-	showOptionsButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		document.querySelector("#optionsModal").showModal();
+function addPrintFormEventListeners() {
+	document.querySelectorAll(".print-btn").forEach((node) => {
+		node.addEventListener("click", (event) => {
+			event.preventDefault();
+			print();
+		});
 	});
-	const gearsIcon = document.createElement("i");
-	gearsIcon.classList.add("fa-solid", "fa-xl", "fa-gears");
-	showOptionsButton.appendChild(gearsIcon);
-	buttonContainer.appendChild(showOptionsButton);
-
-	const generateButton = document.createElement("button");
-	generateButton.classList.add("generate-btn");
-	generateButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		handleGenerate(event.currentTarget.form[0].files);
-	});
-	const fileCirclePlusIcon = document.createElement("i");
-	fileCirclePlusIcon.classList.add("fa-solid", "fa-xl", "fa-file-circle-plus");
-	generateButton.appendChild(fileCirclePlusIcon);
-	buttonContainer.appendChild(generateButton);
-
-	const printButton = document.createElement("button");
-	printButton.classList.add("print-btn");
-	printButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		print();
-	});
-	const printIcon = document.createElement("i");
-	printIcon.classList.add("fa-solid", "fa-xl", "fa-print");
-	printButton.appendChild(printIcon);
-	buttonContainer.appendChild(printButton);
-
-	form.appendChild(buttonContainer);
-	parentElement.appendChild(form);
-}
-
-function buildOptionsModal() {
-	const optionsModal = document.querySelector("#optionsModal");
-	const optionsSubmitButton = document.querySelector("#optionsSubmit");
-	optionsSubmitButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		handleSetOptions(event);
-		optionsModal.close();
+	document.querySelectorAll(".clear-reset-btn").forEach((node) => {
+		node.addEventListener("click", (event) => {
+			handlePageResetButton();
+		});
 	});
 }
 
-function handleSetOptions(event) {
-	const options = {
-		withBarcodes: event.target.form.querySelector("#withBarcodes").checked,
-		withSummary: event.target.form.querySelector("#withSummary").checked,
-		withCategoryTables: event.target.form.querySelector("#withCategoryTables").checked,
-		productOptions: {
-			sortEdibles: event.target.form.querySelector("#sortEdibles").checked,
-			sortVaporizers: event.target.form.querySelector("#sortVaporizers").checked,
+function addGenerateFormEventListeners() {
+	document.querySelector("#generateBtn").addEventListener("click", (event) => {
+		event.preventDefault();
+		if (validateGenerateFormSubmit(event.currentTarget.form)) {
+			handleGenerateFormSubmit(event.currentTarget.form);
+		}
+	});
+	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {});
+}
+
+function validateGenerateFormSubmit(formResult) {
+	if (formResult.querySelector("#csvFileUpload").files.length === 0) {
+		return false;
+	} else if (formResult.querySelector("#csvFileUpload").files.length > 1) {
+		return false;
+	}
+
+	return true;
+}
+
+function handleGenerateFormSubmit(formResult) {
+	handleGenerate(getFormData(formResult));
+	toggleGenerateFormVisibility(false);
+}
+
+function handlePageResetButton() {
+	//// reset page
+	// remove generation
+	document.querySelector("#generator").replaceChildren();
+	// hide print/reset button divs
+	document.querySelectorAll(".reset-form-container").forEach((node) => {
+		node.classList.add("d-none");
+	});
+	const generateFormContainer = document.querySelector("#generateFormContainer");
+	// reset generate tag form
+	generateFormContainer.querySelector("form").reset();
+	// display generate tag form
+	generateFormContainer.classList.remove("d-none");
+}
+
+function toggleGenerateFormVisibility(isVisible) {
+	const generateFormContainer = document.querySelector("#generateFormContainer");
+	isVisible
+		? generateFormContainer.classList.remove("d-none")
+		: generateFormContainer.classList.add("d-none");
+}
+
+function togglePrintResetContainerVisibility(isVisible) {
+	const resetFormContainers = document.querySelectorAll(".reset-form-container");
+	resetFormContainers.forEach((node) => {
+		isVisible ? node.classList.remove("d-none") : node.classList.add("d-none");
+	});
+}
+
+function toggleSpinnerVisibility(isVisible) {
+	const spinnerContainer = document.querySelector("#spinnerContainer");
+	isVisible
+		? spinnerContainer.classList.remove("d-none")
+		: spinnerContainer.classList.add("d-none");
+}
+
+function getFormData(formResult) {
+	return {
+		file: formResult.querySelector("#csvFileUpload").files,
+		options: {
+			tagOptions: {
+				withBarcodes: formResult.querySelector("#withBarcodes").checked,
+				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
+			},
+			sortOptions: {
+				sortEdibles: formResult.querySelector("#sortEdibles").checked,
+				sortVaporizers: formResult.querySelector("#sortVaporizers").checked,
+			},
+			summaryOptions: {
+				withSummary: formResult.querySelector("#withSummary").checked,
+				withCategoryTables: formResult.querySelector("#withCategoryTables").checked,
+			},
 		},
 	};
-	purchaseOrderToolsController.setOptions(options);
 }
 
-async function handleGenerate(files) {
-	await purchaseOrderToolsController.generate(files);
-
+async function handleGenerate(formData) {
+	purchaseOrderToolsController.setOptions(formData.options);
+	toggleGenerateFormVisibility(false); // hide generate form
+	toggleSpinnerVisibility(true); // show spinner
+	await purchaseOrderToolsController.generate(formData.file);
+	toggleSpinnerVisibility(false); // hide spinner
+	togglePrintResetContainerVisibility(true); // show print/reset container
 	const generatorContainer = document.querySelector("#generator");
 
 	const tagElementContainer = handleTags();
@@ -122,7 +144,7 @@ function handleBarcodes(tagElementContainer) {
 }
 
 /**
- *
+ * Generates barcodes for Tag Elements which are already on the DOM in the ITF format.
  * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
  * all generated TagElements.
  */
@@ -142,7 +164,7 @@ function addBarcodes(tagElementContainer) {
 }
 
 /**
- *
+ * Toggles the visibility of the barcodes within the Tag Elements.
  * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
  * all generated TagElements.
  * @param {boolean} withBarcodes A flag which determines whether the barcodes should be visible.
