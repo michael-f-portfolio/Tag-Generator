@@ -33,7 +33,9 @@ function addGenerateFormEventListeners() {
 			handleGenerateFormSubmit(event.currentTarget.form);
 		}
 	});
-	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {});
+	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
+		resetGenerateForm();
+	});
 }
 
 function validateGenerateFormSubmit(formResult) {
@@ -61,12 +63,17 @@ function handlePageResetButton() {
 	});
 	const generateFormContainer = document.querySelector("#generateFormContainer");
 	// reset generate tag form
+	resetGenerateForm();
+
+	// display generate tag form
+	generateFormContainer.classList.remove("d-none");
+}
+
+function resetGenerateForm() {
 	generateFormContainer.querySelector("form").reset();
 	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
 	withCategoryTablesSwitch.checked = false;
 	withCategoryTablesSwitch.disabled = true;
-	// display generate tag form
-	generateFormContainer.classList.remove("d-none");
 }
 
 function toggleGenerateFormVisibility(isVisible) {
