@@ -17,10 +17,14 @@
 			</header>
 		</div>
 		<main>
+			<!-- TOP PRINT/RESET BUTTONS -->
 			<div
 				class="reset-form-container container justify-content-center d-flex w-100 d-none d-print-none"
 			>
-				<button type="button" class="btn btn-primary btn-sm m-2 print-btn">
+				<button
+					type="button"
+					class="btn btn-primary btn-sm m-2 d-flex align-items-center print-btn"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -34,15 +38,18 @@
 							d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"
 						></path>
 					</svg>
-					Print
+					<span class="btn-content">Print</span>
 				</button>
-				<button type="button" class="btn btn-danger btn-sm m-2 clear-reset-btn">
+				<button
+					type="button"
+					class="btn btn-danger btn-sm m-2 d-flex align-items-center clear-reset-btn"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
 						height="16"
 						fill="currentColor"
-						class="bi bi-x-circle"
+						class="bi bi-x-circle ml-1"
 						viewBox="0 0 16 16"
 					>
 						<path
@@ -52,9 +59,10 @@
 							d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
 						></path>
 					</svg>
-					Reset
+					<span class="btn-content">Reset</span>
 				</button>
 			</div>
+			<!-- GENERATE TAG FORM -->
 			<div
 				class="container d-flex flex-column align-items-center w-auto bg-light bg-gradient border shadow-sm rounded d-print-none"
 				id="generateFormContainer"
@@ -176,6 +184,7 @@
 					</div>
 				</form>
 			</div>
+			<!-- SPINNER -->
 			<div
 				class="d-flex justify-content-center align-items-center d-none d-print-none"
 				id="spinnerContainer"
@@ -184,7 +193,9 @@
 					<span class="visually-hidden">Loading...</span>
 				</div>
 			</div>
+			<!-- TAG GENERATOR -->
 			<div id="generator"></div>
+			<!-- BOTTOM PRINT/RESET BUTTONS -->
 			<div
 				class="reset-form-container container justify-content-center d-flex w-100 d-none d-print-none"
 			>
@@ -202,7 +213,7 @@
 							d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"
 						></path>
 					</svg>
-					Print
+					<span class="btn-content">Print</span>
 				</button>
 				<button type="button" class="btn btn-danger btn-sm m-2 clear-reset-btn">
 					<svg
@@ -220,7 +231,7 @@
 							d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
 						></path>
 					</svg>
-					Reset
+					<span class="btn-content">Reset</span>
 				</button>
 			</div>
 		</main>

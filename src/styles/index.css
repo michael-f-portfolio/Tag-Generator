@@ -47,6 +47,11 @@
 }
 
 /**** App  */
+/* Components */
+.btn-content {
+	padding-left: 8px;
+}
+
 /** Generator */
 /* Summary */
 #summary-container {
