@@ -122,8 +122,7 @@ async function handleGenerate(formData) {
 	toggleGenerateFormVisibility(false); // hide generate form
 	toggleSpinnerVisibility(true); // show spinner
 	await purchaseOrderToolsController.generate(formData.file);
-	toggleSpinnerVisibility(false); // hide spinner
-	togglePrintResetContainerVisibility(true); // show print/reset container
+
 	const generatorContainer = document.querySelector("#generator");
 
 	const tagElementContainer = handleTags();
@@ -135,6 +134,8 @@ async function handleGenerate(formData) {
 			generatorContainer.replaceChildren(tagElementContainer);
 		}
 		handleBarcodes(tagElementContainer);
+		toggleSpinnerVisibility(false); // hide spinner
+		togglePrintResetContainerVisibility(true); // show print/reset container
 	} else {
 		console.error("Tag generation failed");
 	}
@@ -142,6 +143,10 @@ async function handleGenerate(formData) {
 
 function handleTags() {
 	return purchaseOrderToolsController.getTagElementContainer();
+}
+
+function handleSummary() {
+	return purchaseOrderToolsController.getSummaryTableContainer();
 }
 
 /**
@@ -187,8 +192,4 @@ function toggleBarcodes(tagElementContainer, withBarcodes) {
 		const img = childNode.querySelector("img");
 		img.style.display = withBarcodes ? "inline" : "none";
 	});
-}
-
-function handleSummary() {
-	return purchaseOrderToolsController.getSummaryTableContainer();
 }
