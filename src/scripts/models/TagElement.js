@@ -5,16 +5,22 @@ export default class TagElement {
 	 * Creates a TagElement based on the supplied Product data.
 	 * @param {Product} product A single Product object containing data the Tag Element will display.
 	 */
-	constructor(product) {
+	constructor(product, withBarcodes, displayCategoryColors) {
 		/**
 		 * The actual HTMLDivElement to be added to the DOM.
 		 */
 		this.element = document.createElement("div");
 		this.element.classList.add("tag");
+		if (withBarcodes) {
+			this.element.classList.add("with-barcode");
+		}
 
 		const name = document.createElement("p");
 		name.classList.add("name", "lh-1");
-		name.textContent = product.name.toString(true);
+		if (!displayCategoryColors) {
+			name.classList.add("background-color-transparent");
+		}
+		name.textContent = product.name.toString(withBarcodes);
 
 		//// sanitize category and sub-category
 		let category = product.category;

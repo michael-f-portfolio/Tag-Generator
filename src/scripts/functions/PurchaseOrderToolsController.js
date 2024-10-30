@@ -60,7 +60,8 @@ export default class PurchaseOrderToolsController {
 		// instantiate new tag element generator with data
 		this.tagElementGenerator = new TagElementContainerGenerator(
 			this.products,
-			this.options.withBarcodes
+			this.options.withBarcodes,
+			this.options.displayCategoryColors
 		);
 		// create
 		this.tagElementGenerator.createTagElementContainer();
