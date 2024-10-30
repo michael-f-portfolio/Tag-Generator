@@ -4,9 +4,8 @@ export default class TagElement {
 	/**
 	 * Creates a TagElement based on the supplied Product data.
 	 * @param {Product} product A single Product object containing data the Tag Element will display.
-	 * @param {boolean} withBarcodes If true, will trim the Product Name of a product when creating Tag Elements to make room for the barcode.
 	 */
-	constructor(product, withBarcodes) {
+	constructor(product) {
 		/**
 		 * The actual HTMLDivElement to be added to the DOM.
 		 */
@@ -15,7 +14,7 @@ export default class TagElement {
 
 		const name = document.createElement("p");
 		name.classList.add("name", "lh-1");
-		name.textContent = product.name.toString();
+		name.textContent = product.name.toString(true);
 
 		//// sanitize category and sub-category
 		let category = product.category;

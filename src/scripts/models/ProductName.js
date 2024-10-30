@@ -29,9 +29,9 @@ export default class ProductName {
 		this.brandName = nameSplit[1].trim();
 	}
 
-	toString() {
+	toString(allowTrim) {
 		const toString = `${this.producerCode} ${this.productInfo} - ${this.brandName}`;
-		if (toString.length > this.MAX_TOSTRING_LENGTH) {
+		if (allowTrim && toString.length > this.MAX_TOSTRING_LENGTH) {
 			return this.toStringTrimmed();
 		} else {
 			return toString;
