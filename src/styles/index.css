@@ -46,183 +46,16 @@
 	src: url(../assets/fonts/Roboto-Black.ttf);
 }
 
-* {
-	box-sizing: border-box;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-	font-family: "Roboto-400";
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 100vh;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-ul,
-li,
-p {
-	margin: 0;
-	padding: 0;
-	text-decoration: none;
-	list-style: none;
-}
-
-a:visited {
-	color: inherit;
-}
-
-button,
-input[type="file"]::file-selector-button {
-	-webkit-appearance: none;
-	appearance: none;
-	border-radius: 0;
-	text-align: inherit;
-	background: none;
-	box-shadow: none;
-	padding: 0;
-	cursor: pointer;
-	border: none;
-	color: inherit;
-	font: inherit;
-	margin: 12px;
-}
-
-html {
-	height: 100%;
-	position: relative;
-}
-
 /**** App  */
-div#app {
-	width: 100%;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-/** Header  */
-header {
-	padding: 0.5em 0 0.5em 0;
-	background-color: var(--slate-800);
-	display: flex;
-	position: fixed;
-	justify-content: space-around;
-	align-items: center;
-	width: 100%;
-	box-shadow: rgba(60, 64, 67, 0.3) 0px 6px 6px 0px;
-}
-
-header h2 {
-	color: var(--slate-200);
-}
-
-header form {
-	display: flex;
-	justify-content: end;
-	align-items: center;
-}
-
-header form input[type="file"] {
-	background-color: var(--slate-600);
-	border-radius: 8px;
-	color: var(--slate-200);
-	cursor: pointer;
-	margin-right: 18px;
-	padding: 8px;
-	width: 400px;
-}
-
-div.buttons button,
-header form input[type="file"]::file-selector-button {
-	color: var(--slate-200);
-	background-color: var(--blue-800);
-	border-radius: 8px;
-	padding: 8px 16px;
-}
-
-header form input[type="file"]::file-selector-button {
-	margin: 0 8px 0 0;
-}
-
-div.buttons button:hover,
-header form input[type="file"]::file-selector-button:hover {
-	background-color: var(--blue-600);
-}
-
-i {
-	color: var(--blue-800);
-}
-
-i:hover {
-	color: var(--blue-600);
-}
-
-/** Options Modal  */
-dialog#optionsModal {
-	height: 400px;
-	width: 400px;
-	padding: 0;
-	border: 2px solid var(--slate-800);
-}
-
-div#optionsContainer {
-	height: 100%;
-	width: 100%;
-}
-
-form#optionsForm {
-	height: 100%;
-	min-width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-}
-
-form#optionsForm h2 {
-	width: 100%;
-}
-
-form#optionsForm label {
-	width: 100%;
-	padding-left: 10px;
-}
-
-form#optionsForm input[type="checkbox"] {
-	margin-right: 8px;
-}
-
-#optionsForm h3 {
-	width: 100%;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	background-color: var(--slate-800);
-	color: var(--slate-200);
-}
-
-div.buttons button {
-	margin-bottom: 8px;
+/* Components */
+.btn-content {
+	padding-left: 8px;
 }
 
 /** Generator */
 /* Summary */
-
 #summary-container {
-	/* display: flex;
-	justify-content: center; */
-	margin: 80px 16px 16px 16px;
+	margin: 20px 8px 20px 8px;
 }
 
 table {
@@ -237,6 +70,7 @@ th,
 td {
 	font-size: 0.8em;
 }
+
 /* Tags */
 p {
 	text-align: center;
@@ -244,7 +78,7 @@ p {
 }
 
 #tag-container {
-	margin: 80px 0 16px 0;
+	margin: 20px 8px 20px 8px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -257,21 +91,37 @@ p {
 	justify-content: center;
 	border: 1px solid black;
 	margin: 0.2em;
-	height: 20mm;
 	width: 48mm;
+}
+
+/* to .tag added when using barcodes */
+.with-barcode {
+	justify-content: start;
 }
 
 .tag > p {
 	font-size: 0.7em;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
-	margin-bottom: 5px;
+	margin: 0;
+	padding: 2px;
 }
 
-.tag > p.product-name {
-	padding: 0 0.1em 0 0.1em;
+.tag > p.name {
+	min-height: 33px;
+}
+
+.tag > p.sku {
+	padding-top: 0;
 }
 
 /* Category Highlights */
+.background-color-transparent {
+	background-color: transparent !important;
+}
 p.category-Edibles {
 	background-color: rgba(149, 250, 176, 0.5);
 }
@@ -309,19 +159,6 @@ p.category-Oils-and-Caps {
 	background-color: rgba(255, 183, 88, 0.5);
 }
 
-/* Footer */
-footer {
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: var(--slate-300);
-	min-height: 50px;
-	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-}
-
 @media print {
 	@page {
 		size: A4;
@@ -347,15 +184,5 @@ footer {
 
 	thead {
 		display: table-row-group;
-	}
-
-	header {
-		display: none;
-		height: 0;
-	}
-
-	footer {
-		display: none;
-		height: 0;
 	}
 }

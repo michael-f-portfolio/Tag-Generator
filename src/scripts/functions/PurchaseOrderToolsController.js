@@ -18,6 +18,7 @@ export default class PurchaseOrderToolsController {
 		 */
 		this.options = {
 			withBarcodes: false,
+			displayCategoryColors: false,
 			withSummary: false,
 			withCategoryTables: false,
 			productOptions: {
@@ -28,7 +29,12 @@ export default class PurchaseOrderToolsController {
 	}
 
 	setOptions(options) {
-		this.options = options;
+		this.options.withBarcodes = options.tagOptions.withBarcodes;
+		this.options.displayCategoryColors = options.tagOptions.displayCategoryColors;
+		this.options.productOptions.sortEdibles = options.sortOptions.sortEdibles;
+		this.options.productOptions.sortVaporizers = options.sortOptions.sortVaporizers;
+		this.options.withSummary = options.summaryOptions.withSummary;
+		this.options.withCategoryTables = options.summaryOptions.withCategoryTables;
 	}
 
 	async generate(files) {
@@ -54,7 +60,8 @@ export default class PurchaseOrderToolsController {
 		// instantiate new tag element generator with data
 		this.tagElementGenerator = new TagElementContainerGenerator(
 			this.products,
-			this.options.withBarcodes
+			this.options.withBarcodes,
+			this.options.displayCategoryColors
 		);
 		// create
 		this.tagElementGenerator.createTagElementContainer();

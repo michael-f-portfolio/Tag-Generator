@@ -11,9 +11,10 @@ export default class TagElementContainerGenerator {
 	 * @param {Products} products A Products object which contains a list of data which will be used to create the Tag Elements.
 	 * @param {boolean} withBarcodes If true, will trim the Product Name of a product when creating Tag Elements to make room for the barcode.
 	 */
-	constructor(products, withBarcodes) {
+	constructor(products, withBarcodes, displayCategoryColors) {
 		this.products = products;
 		this.withBarcodes = withBarcodes;
+		this.displayCategoryColors = displayCategoryColors;
 		this.tagElementContainer = document.createElement("div");
 		this.tagElementContainer.id = "tag-container";
 	}
@@ -42,13 +43,13 @@ export default class TagElementContainerGenerator {
 		// beverages
 		this.products.sortedCategoryContainer.beverages.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		// concentrates
 		this.products.sortedCategoryContainer.concentrates.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		// edibles
@@ -56,20 +57,20 @@ export default class TagElementContainerGenerator {
 			// optional chocolate
 			this.products.sortedCategoryContainer.edibles.chocolates.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 			// optional gummy
 			this.products.sortedCategoryContainer.edibles.gummies.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 		} else {
 			// or all unsorted
 			this.products.sortedCategoryContainer.edibles.unsorted.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 		}
@@ -77,44 +78,44 @@ export default class TagElementContainerGenerator {
 		//// eighth
 		this.products.sortedCategoryContainer.flower.eighths.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		//// quarter
 		this.products.sortedCategoryContainer.flower.quarters.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		//// half
 		this.products.sortedCategoryContainer.flower.halves.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		//// ounce
 		this.products.sortedCategoryContainer.flower.ounces.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		// prerolls
 		//// non infused
 		this.products.sortedCategoryContainer.prerolls.nonInfused.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		//// infused
 		this.products.sortedCategoryContainer.prerolls.infused.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		// capsules, oils and topicals
 		this.products.sortedCategoryContainer.capsulesOilsTopicals.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 		// vaporizers
@@ -122,33 +123,33 @@ export default class TagElementContainerGenerator {
 			// optional cartridges
 			this.products.sortedCategoryContainer.vaporizers.cartridges.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 			// optional pods
 			this.products.sortedCategoryContainer.vaporizers.pods.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 			// optional disposable
 			this.products.sortedCategoryContainer.vaporizers.disposables.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 		} else {
 			// or all unsorted
 			this.products.sortedCategoryContainer.vaporizers.unsorted.forEach((product) => {
 				this.tagElementContainer.appendChild(
-					new TagElement(product, this.withBarcodes).element
+					new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 				);
 			});
 		}
 		// all others
 		this.products.sortedCategoryContainer.other.forEach((product) => {
 			this.tagElementContainer.appendChild(
-				new TagElement(product, this.withBarcodes).element
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
 	}
