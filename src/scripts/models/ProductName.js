@@ -18,6 +18,7 @@
  */
 export default class ProductName {
 	constructor(name) {
+		this.MAX_TOSTRING_LENGTH = 80;
 		// Split between the hyphen
 		let nameSplit = name.split("-");
 		// Any characters before the first whitespace is the Producer Code
@@ -29,15 +30,23 @@ export default class ProductName {
 	}
 
 	toString() {
-		return `${this.producerCode} ${this.productInfo} - ${this.brandName}`;
+		const toString = `${this.producerCode} ${this.productInfo} - ${this.brandName}`;
+		if (toString.length > this.MAX_TOSTRING_LENGTH) {
+			return this.toStringTrimmed();
+		} else {
+			return toString;
+		}
 	}
 
 	toStringTrimmed() {
 		// Get the total length of the toString
 		let trimmedProductInfo = this.productInfo;
 
-		// trim enough of the product info until toString.length <= 63
-		while (`${this.producerCode} ${trimmedProductInfo}... - ${this.brandName}`.length > 59) {
+		// trim enough of the product info until toString.length <= MAX_TOSTRING_LENGTH
+		while (
+			`${this.producerCode} ${trimmedProductInfo}... - ${this.brandName}`.length >
+			this.MAX_TOSTRING_LENGTH
+		) {
 			trimmedProductInfo = trimmedProductInfo.substr(0, trimmedProductInfo.length - 1);
 		}
 

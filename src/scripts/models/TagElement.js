@@ -15,16 +15,7 @@ export default class TagElement {
 
 		const name = document.createElement("p");
 		name.classList.add("name", "lh-1");
-		// If using barcodes, check length of name and trim it if it is over 63 characters to avoid overflowing
-		if (withBarcodes) {
-			if (product.name.toString().length <= 63) {
-				name.textContent = product.name.toString();
-			} else {
-				name.textContent = product.name.toStringTrimmed();
-			}
-		} else {
-			name.textContent = product.name.toString();
-		}
+		name.textContent = product.name.toString();
 
 		//// sanitize category and sub-category
 		let category = product.category;
