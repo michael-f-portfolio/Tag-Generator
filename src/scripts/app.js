@@ -24,6 +24,9 @@ function addPrintFormEventListeners() {
 }
 
 function addGenerateFormEventListeners() {
+	document.querySelector("#withSummary").addEventListener("click", (event) => {
+		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
+	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
 		if (validateGenerateFormSubmit(event.currentTarget.form)) {
@@ -59,6 +62,9 @@ function handlePageResetButton() {
 	const generateFormContainer = document.querySelector("#generateFormContainer");
 	// reset generate tag form
 	generateFormContainer.querySelector("form").reset();
+	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
+	withCategoryTablesSwitch.checked = false;
+	withCategoryTablesSwitch.disabled = true;
 	// display generate tag form
 	generateFormContainer.classList.remove("d-none");
 }
