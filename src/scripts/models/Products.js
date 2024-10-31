@@ -115,13 +115,25 @@ export default class Products {
 					this.sortedCategoryContainer.edibles.unsorted.push(product);
 				}
 			} else if (product.category === "Flower") {
-				if (product.name.productInfo.includes("3.5 g")) {
+				if (
+					product.name.productInfo.productSize > 0 &&
+					product.name.productInfo.productSize <= 3.5
+				) {
 					this.sortedCategoryContainer.flower.eighths.push(product);
-				} else if (product.name.productInfo.includes("7 g")) {
+				} else if (
+					product.name.productInfo.productSize > 3.5 &&
+					product.name.productInfo.productSize <= 7
+				) {
 					this.sortedCategoryContainer.flower.quarters.push(product);
-				} else if (product.name.productInfo.includes("14 g")) {
+				} else if (
+					product.name.productInfo.productSize > 7 &&
+					product.name.productInfo.productSize <= 14
+				) {
 					this.sortedCategoryContainer.flower.halves.push(product);
-				} else if (product.name.productInfo.includes("28 g")) {
+				} else if (
+					product.name.productInfo.productSize > 14 &&
+					product.name.productInfo.productSize <= 28
+				) {
 					this.sortedCategoryContainer.flower.ounces.push(product);
 				} else {
 					this.sortedCategoryContainer.other.push(product);
