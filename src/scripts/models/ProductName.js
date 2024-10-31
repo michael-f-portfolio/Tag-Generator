@@ -21,6 +21,22 @@ export default class ProductName {
 		this.MAX_TOSTRING_LENGTH = 80;
 		// Split between the hyphen
 		let nameSplit = name.split("-");
+
+		// More than one hyphen in the name, this shouldn't happen but due to manually
+		// written names they will show up from time to time
+		if (nameSplit.length > 2) {
+			let producerCodeProductNameSegment = "";
+			nameSplit.forEach((nameSegment, i) => {
+				if (i === nameSplit.length - 1) {
+					return;
+				}
+				producerCodeProductNameSegment = `${producerCodeProductNameSegment} ${nameSegment.trim()}`;
+			});
+			nameSplit = [
+				producerCodeProductNameSegment.trim(),
+				nameSplit[nameSplit.length - 1].trim(),
+			];
+		}
 		// Any characters before the first whitespace is the Producer Code
 		this.producerCode = nameSplit[0].substr(0, nameSplit[0].indexOf(" "));
 		// Anything past the Producer Code and before the hyphen ("-") is the Product Info
