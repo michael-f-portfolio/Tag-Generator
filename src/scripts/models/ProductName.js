@@ -1,3 +1,5 @@
+import ProductInfo from "./ProductInfo.js";
+
 /**
  * A class representing the separate pieces of information that a product's name contains.
  * This includes, in order:
@@ -40,7 +42,7 @@ export default class ProductName {
 		// Any characters before the first whitespace is the Producer Code
 		this.producerCode = nameSplit[0].substr(0, nameSplit[0].indexOf(" "));
 		// Anything past the Producer Code and before the hyphen ("-") is the Product Info
-		this.productInfo = nameSplit[0].substr(nameSplit[0].indexOf(" ")).trim();
+		this.productInfo = new ProductInfo(nameSplit[0].substr(nameSplit[0].indexOf(" ")).trim());
 		// Anything past the hyphen ("-") is the Brand Name.
 		this.brandName = nameSplit[1].trim();
 	}
