@@ -85,28 +85,28 @@ export default class SummaryTableGenerator {
 		//// eighth
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Flower: Eighths",
+				"Flower: 0 g to 3.5 g",
 				this.products.sortedCategoryContainer.flower.eighths
 			)
 		);
 		//// quarter
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Flower: Quarters",
+				"Flower: More than 3.5 g to 7 g",
 				this.products.sortedCategoryContainer.flower.quarters
 			)
 		);
 		//// half
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Flower: Halves",
+				"Flower: More than 7 g to 14 g",
 				this.products.sortedCategoryContainer.flower.halves
 			)
 		);
 		//// ounce
 		categoryTableContainer.appendChild(
 			this.createCategoryTable(
-				"Flower: Ounces",
+				"Flower: More than 14 g to 28 g",
 				this.products.sortedCategoryContainer.flower.ounces
 			)
 		);
