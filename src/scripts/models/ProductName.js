@@ -58,7 +58,7 @@ export default class ProductName {
 
 	toStringTrimmed() {
 		// Get the total length of the toString
-		let trimmedProductInfo = this.productInfo;
+		let trimmedProductInfo = this.productInfo.toString();
 
 		// trim enough of the product info until toString.length <= MAX_TOSTRING_LENGTH
 		while (
