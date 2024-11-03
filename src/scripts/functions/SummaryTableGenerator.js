@@ -39,17 +39,24 @@ export default class SummaryTableGenerator {
 		categoryTableContainer.id = "category-table-container";
 
 		// beverages
-		categoryTableContainer.appendChild(
-			this.createCategoryTable("Beverages", this.products.sortedCategoryContainer.beverages)
-		);
+		if (this.products.sortedCategoryContainer.beverages.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Beverages",
+					this.products.sortedCategoryContainer.beverages
+				)
+			);
+		}
 
 		// concentrates
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Concentrates",
-				this.products.sortedCategoryContainer.concentrates
-			)
-		);
+		if (this.products.sortedCategoryContainer.concentrates.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Concentrates",
+					this.products.sortedCategoryContainer.concentrates
+				)
+			);
+		}
 
 		// edibles
 		if (this.products.options.sortEdibles) {
@@ -74,64 +81,93 @@ export default class SummaryTableGenerator {
 			}
 		} else {
 			// or all unsorted
-			categoryTableContainer.appendChild(
-				this.createCategoryTable(
-					"Edibles",
-					this.products.sortedCategoryContainer.edibles.unsorted
-				)
-			);
+			if (this.products.sortedCategoryContainer.edibles.unsorted.length > 0) {
+				categoryTableContainer.appendChild(
+					this.createCategoryTable(
+						"Edibles",
+						this.products.sortedCategoryContainer.edibles.unsorted
+					)
+				);
+			}
 		}
 		// flower
 		//// eighth
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Flower: Eighths",
-				this.products.sortedCategoryContainer.flower.eighths
-			)
-		);
+		if (this.products.sortedCategoryContainer.flower.eighths.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Flower: 0 g to 3.5 g",
+					this.products.sortedCategoryContainer.flower.eighths
+				)
+			);
+		}
 		//// quarter
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Flower: Quarters",
-				this.products.sortedCategoryContainer.flower.quarters
-			)
-		);
+		if (this.products.sortedCategoryContainer.flower.quarters.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Flower: More than 3.5 g to 7 g",
+					this.products.sortedCategoryContainer.flower.quarters
+				)
+			);
+		}
 		//// half
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Flower: Halves",
-				this.products.sortedCategoryContainer.flower.halves
-			)
-		);
+		if (this.products.sortedCategoryContainer.flower.halves.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Flower: More than 7 g to 14 g",
+					this.products.sortedCategoryContainer.flower.halves
+				)
+			);
+		}
 		//// ounce
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Flower: Ounces",
-				this.products.sortedCategoryContainer.flower.ounces
-			)
-		);
+		if (this.products.sortedCategoryContainer.flower.ounces.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Flower: More than 14 g to 28 g",
+					this.products.sortedCategoryContainer.flower.ounces
+				)
+			);
+		}
+
+		//// other
+		if (this.products.sortedCategoryContainer.flower.other.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Flower: Other Sizes",
+					this.products.sortedCategoryContainer.flower.other
+				)
+			);
+		}
+
 		// prerolls
 		//// non infused
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Pre-Rolls: Non-Infused",
-				this.products.sortedCategoryContainer.prerolls.nonInfused
-			)
-		);
+		if (this.products.sortedCategoryContainer.prerolls.nonInfused.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Pre-Rolls: Non-Infused",
+					this.products.sortedCategoryContainer.prerolls.nonInfused
+				)
+			);
+		}
+
 		//// infused
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Pre-Rolls: Infused",
-				this.products.sortedCategoryContainer.prerolls.infused
-			)
-		);
+		if (this.products.sortedCategoryContainer.prerolls.infused.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Pre-Rolls: Infused",
+					this.products.sortedCategoryContainer.prerolls.infused
+				)
+			);
+		}
+
 		// capsules, oils and topicals
-		categoryTableContainer.appendChild(
-			this.createCategoryTable(
-				"Capsules, Oils and Topicals",
-				this.products.sortedCategoryContainer.capsulesOilsTopicals
-			)
-		);
+		if (this.products.sortedCategoryContainer.capsulesOilsTopicals.length > 0) {
+			categoryTableContainer.appendChild(
+				this.createCategoryTable(
+					"Capsules, Oils and Topicals",
+					this.products.sortedCategoryContainer.capsulesOilsTopicals
+				)
+			);
+		}
 
 		// vaporizers
 		if (this.products.options.sortVaporizers) {
@@ -166,12 +202,14 @@ export default class SummaryTableGenerator {
 			}
 		} else {
 			// or all unsorted
-			categoryTableContainer.appendChild(
-				this.createCategoryTable(
-					"Vaporizers",
-					this.products.sortedCategoryContainer.vaporizers.unsorted
-				)
-			);
+			if (this.products.sortedCategoryContainer.vaporizers.unsorted.length > 0) {
+				categoryTableContainer.appendChild(
+					this.createCategoryTable(
+						"Vaporizers",
+						this.products.sortedCategoryContainer.vaporizers.unsorted
+					)
+				);
+			}
 		}
 
 		// all others

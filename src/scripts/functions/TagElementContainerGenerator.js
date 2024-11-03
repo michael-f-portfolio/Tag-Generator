@@ -99,6 +99,12 @@ export default class TagElementContainerGenerator {
 				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
 			);
 		});
+		//// other
+		this.products.sortedCategoryContainer.flower.other.forEach((product) => {
+			this.tagElementContainer.appendChild(
+				new TagElement(product, this.withBarcodes, this.displayCategoryColors).element
+			);
+		});
 		// prerolls
 		//// non infused
 		this.products.sortedCategoryContainer.prerolls.nonInfused.forEach((product) => {

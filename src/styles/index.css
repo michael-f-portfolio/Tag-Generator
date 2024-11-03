@@ -52,6 +52,10 @@
 	padding-left: 8px;
 }
 
+div#generateFormContainer {
+	width: 540px !important;
+}
+
 /** Generator */
 /* Summary */
 #summary-container {

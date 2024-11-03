@@ -10,8 +10,48 @@
  */
 export default class ProductInfo {
 	constructor(name) {
-		this.sellableProductName = "";
-		this.strainType = "";
-		this.productSize = "";
+		this.name = name;
+
+		if (name.includes("Indica")) {
+			this.parseProductInfoFromName(name, "Indica");
+		} else if (name.includes("Sativa")) {
+			this.parseProductInfoFromName(name, "Sativa");
+		} else if (name.includes("Hybrid")) {
+			this.parseProductInfoFromName(name, "Hybrid");
+		} else if (name.includes("Blend")) {
+			this.parseProductInfoFromName(name, "Blend");
+		} else {
+			this.strainType = "Unknown";
+		}
+	}
+
+	parseProductInfoFromName(name, strainType) {
+		this.strainType = strainType;
+		let nameSplit = name.split(strainType);
+
+		// Some products have their strain type included in their name as well
+		if (nameSplit.length > 2) {
+			const amountOfStrainTypeOccurrences = nameSplit.length - 1;
+			let productNameSegment = "";
+			nameSplit.forEach((nameSegment, i) => {
+				if (i === nameSplit.length - 1) {
+					return;
+				}
+				productNameSegment = `${productNameSegment} ${nameSegment.trim()}`;
+				if (i < amountOfStrainTypeOccurrences - 1) {
+					productNameSegment = `${productNameSegment} ${strainType}`;
+				}
+			});
+			nameSplit = [productNameSegment.trim(), nameSplit[nameSplit.length - 1].trim()];
+		}
+
+		this.sellableProductName = nameSplit[0].trim();
+		const sizeSplit = nameSplit[1].trim().split(" ");
+		this.productSize = parseFloat(sizeSplit[0]);
+		this.measurementUnit = sizeSplit[1];
+	}
+
+	toString() {
+		return `${this.sellableProductName} ${this.strainType} ${this.productSize} ${this.measurementUnit}`;
 	}
 }
