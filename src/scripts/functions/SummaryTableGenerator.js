@@ -110,6 +110,13 @@ export default class SummaryTableGenerator {
 				this.products.sortedCategoryContainer.flower.ounces
 			)
 		);
+		//// other
+		categoryTableContainer.appendChild(
+			this.createCategoryTable(
+				"Flower: Other Sizes",
+				this.products.sortedCategoryContainer.flower.other
+			)
+		);
 		// prerolls
 		//// non infused
 		categoryTableContainer.appendChild(

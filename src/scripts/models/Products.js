@@ -24,6 +24,7 @@ export default class Products {
 				quarters: [],
 				halves: [],
 				ounces: [],
+				other: [],
 			},
 			prerolls: {
 				nonInfused: [],
@@ -136,7 +137,7 @@ export default class Products {
 				) {
 					this.sortedCategoryContainer.flower.ounces.push(product);
 				} else {
-					this.sortedCategoryContainer.other.push(product);
+					this.sortedCategoryContainer.flower.other.push(product);
 				}
 			} else if (product.category === "Pre-Rolls") {
 				if (
