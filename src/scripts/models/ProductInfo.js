@@ -23,12 +23,6 @@ export default class ProductInfo {
 		} else {
 			this.strainType = "Unknown";
 		}
-
-		console.log(this.name);
-
-		console.log(
-			`${this.sellableProductName} ${this.strainType} ${this.productSize} ${this.measurementUnit}`
-		);
 	}
 
 	parseProductInfoFromName(name, strainType) {

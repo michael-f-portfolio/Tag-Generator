@@ -166,6 +166,6 @@ export default class Products {
 			}
 		});
 
-		console.log(this.sortedCategoryContainer);
+		console.debug(this.sortedCategoryContainer);
 	}
 }
