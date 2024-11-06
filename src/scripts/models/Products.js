@@ -63,6 +63,10 @@ export default class Products {
 			this.parsedData = this.parsedData.data.slice(15);
 			for (let i = 0; i < this.parsedData.length; i++) {
 				const item = this.parsedData[i];
+				// Edit History has been added to the end of the CSV, so once we hit that we're at the end of the PO
+				if (item[0].includes("Product Modification Logs")) {
+					break;
+				}
 				// PapaParse adds entries for blank spaces so we're not going to include those
 				if (item[0] !== "") {
 					const product = new Product(
