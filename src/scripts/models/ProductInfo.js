@@ -21,7 +21,8 @@ export default class ProductInfo {
 		} else if (name.includes("Blend")) {
 			this.parseProductInfoFromName(name, "Blend");
 		} else {
-			this.strainType = "Unknown";
+			// Product does not have a strain type included in name
+			this.noStrainType = true;
 		}
 	}
 
@@ -52,6 +53,10 @@ export default class ProductInfo {
 	}
 
 	toString() {
-		return `${this.sellableProductName} ${this.strainType} ${this.productSize} ${this.measurementUnit}`;
+		if (this.noStrainType) {
+			return this.name;
+		} else {
+			return `${this.sellableProductName} ${this.strainType} ${this.productSize} ${this.measurementUnit}`;
+		}
 	}
 }
