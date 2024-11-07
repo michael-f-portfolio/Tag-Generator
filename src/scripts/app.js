@@ -128,13 +128,13 @@ async function handleGenerate(formData) {
 
 	const tagElementContainer = handleTags();
 	if (tagElementContainer) {
-		if (purchaseOrderToolsController.options.withSummary) {
+		if (formData.options.summaryOptions.withSummary) {
 			const summaryTableContainer = handleSummary();
 			generatorContainer.replaceChildren(summaryTableContainer, tagElementContainer);
 		} else {
 			generatorContainer.replaceChildren(tagElementContainer);
 		}
-		handleBarcodes(tagElementContainer);
+		handleBarcodes(tagElementContainer, formData.options.tagOptions, barcodeTest);
 		toggleSpinnerVisibility(false); // hide spinner
 		togglePrintResetContainerVisibility(true); // show print/reset container
 	} else {
@@ -167,7 +167,7 @@ function handleBarcodes(tagElementContainer) {
  * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
  * all generated TagElements.
  */
-function addBarcodes(tagElementContainer) {
+function addBarcodes(tagElementContainer, tagSize) {
 	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
