@@ -104,6 +104,7 @@ function getFormData(formResult) {
 			tagOptions: {
 				withBarcodes: formResult.querySelector("#withBarcodes").checked,
 				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
+				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
 			},
 			sortOptions: {
 				sortEdibles: formResult.querySelector("#sortEdibles").checked,
@@ -171,8 +172,8 @@ function addBarcodes(tagElementContainer) {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
 			format: "ITF",
-			height: 25,
-			width: 1,
+			height: tagSize === "small" ? 25 : 50,
+			width: tagSize === "small" ? 1 : 2,
 			fontSize: 14,
 			margin: 1,
 			textMargin: 0,
