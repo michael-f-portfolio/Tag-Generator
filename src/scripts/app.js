@@ -6,7 +6,12 @@ addFormEventListeners();
 
 function addFormEventListeners() {
 	addPrintFormEventListeners();
-	addGenerateFormEventListeners();
+	if (document.title === "Tag Generator") {
+		addGenerateFormEventListeners();
+	}
+	if (document.title === "Barcode Test") {
+		addBarcodeTestFormEventListeners();
+	}
 }
 
 function addPrintFormEventListeners() {
@@ -34,7 +39,14 @@ function addGenerateFormEventListeners() {
 		}
 	});
 	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
-		resetGenerateForm();
+		resetGenerateTagForm();
+	});
+}
+
+function addBarcodeTestFormEventListeners() {
+	document.querySelector("#generateBarcodeTestBtn").addEventListener("click", (event) => {
+		event.preventDefault();
+		handleBarcodeTestFormSubmit(event.currentTarget.form);
 	});
 }
 
@@ -53,6 +65,22 @@ function handleGenerateFormSubmit(formResult) {
 	toggleGenerateFormVisibility(false);
 }
 
+function handleBarcodeTestFormSubmit(formResult) {
+	const formData = {
+		file: null,
+		options: {
+			tagOptions: {
+				withBarcodes: true,
+				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
+				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
+			},
+			sortOptions: { sortEdibles: false, sortVaporizers: false },
+			summaryOptions: { withSummary: false, withCategoryTables: false },
+		},
+	};
+	handleGenerate(formData, true);
+}
+
 function handlePageResetButton() {
 	//// reset page
 	// remove generation
@@ -63,17 +91,27 @@ function handlePageResetButton() {
 	});
 	const generateFormContainer = document.querySelector("#generateFormContainer");
 	// reset generate tag form
-	resetGenerateForm();
+	if (document.title === "Tag Generator") {
+		resetGenerateTagForm(generateFormContainer);
+	}
+
+	if (document.title === "Barcode Test") {
+		resetGenerateBarcodeTestForm(generateFormContainer);
+	}
 
 	// display generate tag form
 	generateFormContainer.classList.remove("d-none");
 }
 
-function resetGenerateForm() {
+function resetGenerateTagForm(generateFormContainer) {
 	generateFormContainer.querySelector("form").reset();
 	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
 	withCategoryTablesSwitch.checked = false;
 	withCategoryTablesSwitch.disabled = true;
+}
+
+function resetGenerateBarcodeTestForm(generateFormContainer) {
+	generateFormContainer.querySelector("form").reset();
 }
 
 function toggleGenerateFormVisibility(isVisible) {
@@ -118,11 +156,11 @@ function getFormData(formResult) {
 	};
 }
 
-async function handleGenerate(formData) {
+async function handleGenerate(formData, barcodeTest) {
 	purchaseOrderToolsController.setOptions(formData.options);
 	toggleGenerateFormVisibility(false); // hide generate form
 	toggleSpinnerVisibility(true); // show spinner
-	await purchaseOrderToolsController.generate(formData.file);
+	await purchaseOrderToolsController.generate(formData.file, barcodeTest);
 
 	const generatorContainer = document.querySelector("#generator");
 
@@ -156,10 +194,15 @@ function handleSummary() {
  * it will not work with a collection not already added to the dom.
  * @param {HTMLDivElement} tagElementContainer
  */
-function handleBarcodes(tagElementContainer) {
-	addBarcodes(tagElementContainer);
+function handleBarcodes(tagElementContainer, tagOptions, barcodeTest) {
+	if (barcodeTest) {
+		addTestBarcodes(tagElementContainer, tagOptions.tagSize);
+	} else {
+		addBarcodes(tagElementContainer, tagOptions.tagSize);
+	}
+
 	// Toggle visibility of barcodes based on withBarcodes flag
-	toggleBarcodes(tagElementContainer, purchaseOrderToolsController.options.withBarcodes);
+	toggleBarcodes(tagElementContainer, tagOptions.withBarcodes);
 }
 
 /**
@@ -193,4 +236,46 @@ function toggleBarcodes(tagElementContainer, withBarcodes) {
 		const img = childNode.querySelector("img");
 		img.style.display = withBarcodes ? "inline" : "none";
 	});
+}
+
+function addTestBarcodes(tagElementContainer, tagSize) {
+	tagElementContainer.childNodes.forEach((childNode) => {
+		const img = childNode.querySelector("img");
+		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
+			format: getBarcodeType(childNode),
+			height: tagSize === "small" ? 25 : 50,
+			width: tagSize === "small" ? 1 : 2,
+			fontSize: 14,
+			margin: 1,
+			textMargin: 0,
+			displayValue: false,
+		});
+	});
+}
+
+function getBarcodeType(element) {
+	if (element.querySelector("p.name").textContent.includes("Code128 A")) {
+		return "CODE128A";
+	}
+	if (element.querySelector("p.name").textContent.includes("Code128 auto")) {
+		return "CODE128";
+	}
+	if (element.querySelector("p.name").textContent.includes("Code128 B")) {
+		return "CODE128B";
+	}
+	if (element.querySelector("p.name").textContent.includes("Code128 C")) {
+		return "CODE128C";
+	}
+	if (element.querySelector("p.name").textContent.includes("Code39")) {
+		return "CODE39";
+	}
+	if (element.querySelector("p.name").textContent.includes("ITF")) {
+		return "ITF";
+	}
+	if (element.querySelector("p.name").textContent.includes("MSI")) {
+		return "MSI";
+	}
+	if (element.querySelector("p.name").textContent.includes("Pharmacode")) {
+		return "pharmacode";
+	}
 }

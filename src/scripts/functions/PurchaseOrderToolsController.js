@@ -18,8 +18,8 @@ export default class PurchaseOrderToolsController {
 		 */
 		this.options = {
 			tagOptions: {
-			withBarcodes: false,
-			displayCategoryColors: false,
+				withBarcodes: false,
+				displayCategoryColors: false,
 				tagSize: "small",
 			},
 			sortOptions: {
@@ -41,9 +41,10 @@ export default class PurchaseOrderToolsController {
 		if (barcodeTest) {
 			this.createTestProducts();
 		} else {
-		await this.createProducts(files);
+			await this.createProducts(files);
+		}
 		this.createTagElementContainer();
-		if (this.options.withSummary) {
+		if (this.options.summaryOptions.withSummary) {
 			this.createSummaryTableContainer();
 		}
 	}
@@ -87,5 +88,116 @@ export default class PurchaseOrderToolsController {
 
 	getSummaryTableContainer() {
 		return this.summaryTableContainer;
+	}
+
+	createTestProducts() {
+		const testData = {
+			data: [
+				["Id", "0000"],
+				["Description", "ABC"],
+				["Supplier Invoice Number", "0000"],
+				["Vendor Name", "ABCD"],
+				["Payment Due Date", "1/1/1970 12:00:00 AM"],
+				["Date Expected", "1/1/1970 12:00:00 AM"],
+				["Subtotal", "0.00"],
+				["Shipping", "0.00"],
+				["Recycling Fee", "0.00"],
+				["Deposit Amount", "0.00"],
+				["GST", "0.00"],
+				["Total", "0.00"],
+				[""],
+				[""],
+				[
+					"Sku",
+					"Name",
+					"PackageReference",
+					"Category",
+					"Subcategory",
+					"OrderedQty",
+					"CurrentQty",
+					"UnitCost",
+					"Total",
+				],
+				[
+					"222222",
+					"TEST Code128 auto Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"111111",
+					"TEST Code128 A Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"333333",
+					"TEST Code128 B Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"444444",
+					"TEST Code128 C Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"555555",
+					"TEST Code39 Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"666666",
+					"TEST ITF Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+				[
+					"777777",
+					"TEST MSI Barcode - Test",
+					"Beverages",
+					"Beverages",
+					"0",
+					"0",
+					"0",
+					"0",
+					"0",
+				],
+			],
+		};
+		this.products = new Products(testData, this.options.sortOptions);
+		this.products.createProducts();
 	}
 }
