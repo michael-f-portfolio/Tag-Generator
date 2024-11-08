@@ -27,3 +27,4 @@ BUGS:
 
 1. ~~Clicking generate multiple times doesn't create a new set of tags but instead appends to the end.~~
 2. ~~Have to refresh to generate a new report~~
+a
