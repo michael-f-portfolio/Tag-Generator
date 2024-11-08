@@ -170,7 +170,5 @@ export default class Products {
 				this.sortedCategoryContainer.other.push(product);
 			}
 		});
-
-		console.debug(this.sortedCategoryContainer);
 	}
 }

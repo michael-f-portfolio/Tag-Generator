@@ -2,6 +2,7 @@ import ExportedCSVParser from "./ExportedCSVParser.js";
 import SummaryTableGenerator from "./SummaryTableGenerator.js";
 import TagElementContainerGenerator from "./TagElementContainerGenerator.js";
 import Products from "../models/Products.js";
+import getBarcodeTestData from "../tests/getBarcodeTestData.js";
 
 export default class PurchaseOrderToolsController {
 	constructor() {
@@ -17,30 +18,34 @@ export default class PurchaseOrderToolsController {
 		 * generation is handled.
 		 */
 		this.options = {
-			withBarcodes: false,
-			displayCategoryColors: false,
-			withSummary: false,
-			withCategoryTables: false,
-			productOptions: {
+			tagOptions: {
+				withBarcodes: false,
+				displayCategoryColors: false,
+				tagSize: "small",
+			},
+			sortOptions: {
 				sortEdibles: false,
 				sortVaporizers: false,
+			},
+			summaryOptions: {
+				withSummary: false,
+				withCategoryTables: false,
 			},
 		};
 	}
 
 	setOptions(options) {
-		this.options.withBarcodes = options.tagOptions.withBarcodes;
-		this.options.displayCategoryColors = options.tagOptions.displayCategoryColors;
-		this.options.productOptions.sortEdibles = options.sortOptions.sortEdibles;
-		this.options.productOptions.sortVaporizers = options.sortOptions.sortVaporizers;
-		this.options.withSummary = options.summaryOptions.withSummary;
-		this.options.withCategoryTables = options.summaryOptions.withCategoryTables;
+		this.options = options;
 	}
 
-	async generate(files) {
-		await this.createProducts(files);
+	async generate(files, barcodeTest) {
+		if (barcodeTest) {
+			this.createTestProducts();
+		} else {
+			await this.createProducts(files);
+		}
 		this.createTagElementContainer();
-		if (this.options.withSummary) {
+		if (this.options.summaryOptions.withSummary) {
 			this.createSummaryTableContainer();
 		}
 	}
@@ -49,7 +54,7 @@ export default class PurchaseOrderToolsController {
 		this.exportedCSVParser.setFileList(files);
 		const parsedData = await this.exportedCSVParser.parse();
 		if (parsedData) {
-			this.products = new Products(parsedData, this.options.productOptions);
+			this.products = new Products(parsedData, this.options.sortOptions);
 			this.products.createProducts();
 		} else {
 			console.error("No parsed data to create products from.");
@@ -60,8 +65,7 @@ export default class PurchaseOrderToolsController {
 		// instantiate new tag element generator with data
 		this.tagElementGenerator = new TagElementContainerGenerator(
 			this.products,
-			this.options.withBarcodes,
-			this.options.displayCategoryColors
+			this.options.tagOptions
 		);
 		// create
 		this.tagElementGenerator.createTagElementContainer();
@@ -76,7 +80,7 @@ export default class PurchaseOrderToolsController {
 	createSummaryTableContainer() {
 		this.summaryTableGenerator = new SummaryTableGenerator(
 			this.products,
-			this.options.withCategoryTables
+			this.options.summaryOptions.withCategoryTables
 		);
 		this.summaryTableContainer = this.summaryTableGenerator.createSummaryTableContainer(
 			this.products.toArray
@@ -85,5 +89,11 @@ export default class PurchaseOrderToolsController {
 
 	getSummaryTableContainer() {
 		return this.summaryTableContainer;
+	}
+
+	createTestProducts() {
+		const testData = getBarcodeTestData();
+		this.products = new Products(testData, this.options.sortOptions);
+		this.products.createProducts();
 	}
 }

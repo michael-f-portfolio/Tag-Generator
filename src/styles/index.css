@@ -104,7 +104,7 @@ p {
 }
 
 .tag > p {
-	font-size: 0.7em;
+	font-size: 0.7rem;
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -112,14 +112,34 @@ p {
 	width: 100%;
 	margin: 0;
 	padding: 2px;
+	/* font-family: monospace; */
+	font-family: "Roboto-300";
 }
 
 .tag > p.name {
 	min-height: 33px;
 }
 
+.tag > img.barcode {
+	height: 10mm;
+	width: 25mm;
+}
+
 .tag > p.sku {
 	padding-top: 0;
+}
+
+.tag-large {
+	width: 64mm;
+}
+
+.tag-large > p {
+	font-size: 1.08rem;
+}
+
+.tag-large > img.barcode {
+	height: 12mm;
+	width: 40mm;
 }
 
 /* Category Highlights */
@@ -165,7 +185,6 @@ p.category-Oils-and-Caps {
 
 @media print {
 	@page {
-		size: A4;
 		margin: 5mm 5mm 5mm 5mm;
 	}
 	html {
