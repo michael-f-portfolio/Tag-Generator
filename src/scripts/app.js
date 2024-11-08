@@ -61,7 +61,7 @@ function validateGenerateFormSubmit(formResult) {
 }
 
 function handleGenerateFormSubmit(formResult) {
-	handleGenerate(getFormData(formResult));
+	handleGenerate(getFormData(formResult), false);
 	toggleGenerateFormVisibility(false);
 }
 
