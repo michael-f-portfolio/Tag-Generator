@@ -6,10 +6,10 @@ addFormEventListeners();
 
 function addFormEventListeners() {
 	addPrintFormEventListeners();
-	if (document.title === "Tag Generator") {
+	if (document.title === "Tag Generator - Generate Tags") {
 		addGenerateFormEventListeners();
 	}
-	if (document.title === "Barcode Test") {
+	if (document.title === "Tag Generator - Barcode Test") {
 		addBarcodeTestFormEventListeners();
 	}
 }
