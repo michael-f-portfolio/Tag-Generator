@@ -40,7 +40,7 @@ function addGenerateFormEventListeners() {
 	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
-			handleGenerateFormSubmit(event.currentTarget.form);
+		handleGenerateFormSubmit(event.currentTarget.form);
 	});
 	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
 		resetGenerateTagForm();
@@ -87,7 +87,7 @@ function toggleFormInputVisibility(eventSource) {
 function handleGenerateFormSubmit(formResult) {
 	if (formResult.querySelector("#generateSourcePurchaseOrder").checked) {
 		if (validateGenerateFormSubmit(formResult)) {
-	handleGenerate(getFormData(formResult), false);
+			handleGenerate(getFormData(formResult), false);
 		} else {
 			// send validation feedback
 			return false;
