@@ -29,6 +29,12 @@ function addPrintFormEventListeners() {
 }
 
 function addGenerateFormEventListeners() {
+	document.querySelector("#generateSourcePurchaseOrder").addEventListener("click", (event) => {
+		toggleFormInputVisibility(event.target.id);
+	});
+	document.querySelector("#generateSourceBarcodeTest").addEventListener("click", (event) => {
+		toggleFormInputVisibility(event.target.id);
+	});
 	document.querySelector("#withSummary").addEventListener("click", (event) => {
 		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
 	});
@@ -58,6 +64,26 @@ function validateGenerateFormSubmit(formResult) {
 	}
 
 	return true;
+}
+
+function toggleFormInputVisibility(eventSource) {
+	const elementsToToggle = [];
+	elementsToToggle.push(
+		document.querySelector("#fileUploadContainer"),
+		document.querySelector("#sortOptionsContainer"),
+		document.querySelector("#summaryTableOptionsContainer")
+	);
+	if (eventSource === "generateSourcePurchaseOrder") {
+		// show elements
+		elementsToToggle.forEach((elementToToggle) => {
+			elementToToggle.setAttribute("style", "");
+		});
+	} else if ((eventSource = "generateSourceBarcodeTest")) {
+		// hide elements
+		elementsToToggle.forEach((elementToToggle) => {
+			elementToToggle.setAttribute("style", "display:none !important");
+		});
+	}
 }
 
 function handleGenerateFormSubmit(formResult) {
