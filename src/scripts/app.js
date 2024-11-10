@@ -40,9 +40,7 @@ function addGenerateFormEventListeners() {
 	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
-		if (validateGenerateFormSubmit(event.currentTarget.form)) {
 			handleGenerateFormSubmit(event.currentTarget.form);
-		}
 	});
 	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
 		resetGenerateTagForm();
@@ -87,7 +85,16 @@ function toggleFormInputVisibility(eventSource) {
 }
 
 function handleGenerateFormSubmit(formResult) {
+	if (formResult.querySelector("#generateSourcePurchaseOrder").checked) {
+		if (validateGenerateFormSubmit(formResult)) {
 	handleGenerate(getFormData(formResult), false);
+		} else {
+			// send validation feedback
+			return false;
+		}
+	} else if (formResult.querySelector("#generateSourceBarcodeTest").checked) {
+		handleGenerate(getFormData(formResult), true);
+	}
 	toggleGenerateFormVisibility(false);
 }
 
