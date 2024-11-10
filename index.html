@@ -27,6 +27,7 @@
 		<title>Tag Generator - Generate Tags</title>
 	</head>
 	<body class="d-flex flex-column min-vh-100 justify-content-between">
+		<!-- HEADER -->
 		<div class="container d-print-none">
 			<header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
 				<a
@@ -108,7 +109,39 @@
 			>
 				<form id="importForm" class="">
 					<div class="d-flex flex-column align-items-center">
-						<span class="m-3 fs-4">Generate Tags From Purchase Order</span>
+						<span class="m-3 fs-4">Generate Tags</span>
+						<div class="d-flex flex-column align-items-start w-100 m-2">
+							<span class="fs-5">Generate Source:</span>
+							<div>
+								<div class="form-check form-check-inline">
+									<input
+										class="form-check-input"
+										type="radio"
+										name="generateSource"
+										id="generateSourcePurchaseOrder"
+										value="purchaseOrder"
+										checked
+									/>
+									<label
+										class="form-check-label"
+										for="generateSourcePurchaseOrder"
+										>Purchase Order</label
+									>
+								</div>
+								<div class="form-check form-check-inline">
+									<input
+										class="form-check-input"
+										type="radio"
+										name="generateSource"
+										id="generateSourceBarcodeTest"
+										value="barcodeTest"
+									/>
+									<label class="form-check-label" for="generateSourceBarcodeTest"
+										>Barcode Test</label
+									>
+								</div>
+							</div>
+						</div>
 						<div class="input-group mb-2">
 							<input
 								type="file"
@@ -347,6 +380,7 @@
 				</button>
 			</div>
 		</main>
+		<!-- FOOTER -->
 		<div class="container d-print-none">
 			<footer class="footer pt-3 mt-3">
 				<ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
