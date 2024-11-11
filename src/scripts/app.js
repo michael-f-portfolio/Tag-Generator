@@ -303,10 +303,4 @@ function getBarcodeType(element) {
 	if (element.querySelector("p.name").textContent.includes("ITF")) {
 		return "ITF";
 	}
-	if (element.querySelector("p.name").textContent.includes("MSI")) {
-		return "MSI";
-	}
-	if (element.querySelector("p.name").textContent.includes("Pharmacode")) {
-		return "pharmacode";
-	}
 }
