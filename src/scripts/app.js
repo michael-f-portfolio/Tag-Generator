@@ -57,18 +57,32 @@ function toggleFormInputVisibility(eventSource) {
 	elementsToToggle.push(
 		document.querySelector("#fileUploadContainer"),
 		document.querySelector("#sortOptionsContainer"),
-		document.querySelector("#summaryTableOptionsContainer")
+		document.querySelector("#summaryTableOptionsContainer"),
+		document.querySelector("#barcodeTypeContainer")
 	);
+	const formDescriptionPO = document.querySelector("#formDescriptionPO");
+	const formDescriptionBarcodeType = document.querySelector("#formDescriptionBarcodeTest");
+	const withBarcodeSwitch = document.querySelector("#withBarcodes");
 	if (eventSource === "generateSourcePurchaseOrder") {
 		// show elements
 		elementsToToggle.forEach((elementToToggle) => {
-			elementToToggle.setAttribute("style", "");
+			elementToToggle.classList.remove("visually-hidden");
 		});
+		// toggle form description
+		formDescriptionPO.classList.remove("visually-hidden");
+		formDescriptionBarcodeType.classList.add("visually-hidden");
+		// unlock barcode switch
+		withBarcodeSwitch.removeAttribute("disabled");
 	} else if ((eventSource = "generateSourceBarcodeTest")) {
 		// hide elements
 		elementsToToggle.forEach((elementToToggle) => {
-			elementToToggle.setAttribute("style", "display:none !important");
+			elementToToggle.classList.add("visually-hidden");
 		});
+		// toggle form description
+		formDescriptionPO.classList.add("visually-hidden");
+		formDescriptionBarcodeType.classList.remove("visually-hidden");
+		// lock barcode switch
+		withBarcodeSwitch.setAttribute("disabled", true);
 	}
 }
 
