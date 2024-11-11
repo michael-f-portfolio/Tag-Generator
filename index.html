@@ -76,8 +76,10 @@
 				<form id="generateForm" class="w-100">
 					<div class="d-flex flex-column align-items-center">
 						<h2 class="">Generate Tags</h2>
-						<span class="mb-2 fs-6">Generate tags from a purchase order</span>
-						<span class="mb-2 fs-6"
+						<span class="mb-2 fs-6" id="formDescriptionPO"
+							>Generate tags from a purchase order</span
+						>
+						<span class="mb-2 fs-6 visually-hidden" id="formDescriptionBarcodeTest"
 							>Generate a barcode test containing all available barcode styles</span
 						>
 						<div class="d-flex flex-column align-items-start w-100 mb-2">
@@ -186,7 +188,7 @@
 										Show barcodes
 									</label>
 								</div>
-								<div class="w-50">
+								<div class="w-50" id="barcodeTypeContainer">
 									<label class="form-label" for="barcodeType"
 										>Barcode Type:</label
 									>
