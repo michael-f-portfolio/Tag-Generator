@@ -2,16 +2,11 @@ import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsControll
 
 const purchaseOrderToolsController = new PurchaseOrderToolsController();
 
-addFormEventListeners();
+addEventListeners();
 
-function addFormEventListeners() {
+function addEventListeners() {
 	addPrintFormEventListeners();
-	if (document.title === "Tag Generator - Generate Tags") {
-		addGenerateFormEventListeners();
-	}
-	if (document.title === "Tag Generator - Barcode Test") {
-		addBarcodeTestFormEventListeners();
-	}
+	addGenerateFormEventListeners();
 }
 
 function addPrintFormEventListeners() {
@@ -43,14 +38,7 @@ function addGenerateFormEventListeners() {
 		handleGenerateFormSubmit(event.currentTarget.form);
 	});
 	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
-		resetGenerateTagForm();
-	});
-}
-
-function addBarcodeTestFormEventListeners() {
-	document.querySelector("#generateBarcodeTestBtn").addEventListener("click", (event) => {
-		event.preventDefault();
-		handleBarcodeTestFormSubmit(event.currentTarget.form);
+		resetGenerateTagForm(event.target.form);
 	});
 }
 
@@ -93,7 +81,7 @@ function handleGenerateFormSubmit(formResult) {
 			return false;
 		}
 	} else if (formResult.querySelector("#generateSourceBarcodeTest").checked) {
-		handleGenerate(getFormData(formResult), true);
+		handleBarcodeTestFormSubmit(formResult);
 	}
 	toggleGenerateFormVisibility(false);
 }
@@ -122,29 +110,19 @@ function handlePageResetButton() {
 	document.querySelectorAll(".reset-form-container").forEach((node) => {
 		node.classList.add("d-none");
 	});
-	const generateFormContainer = document.querySelector("#generateFormContainer");
+	const generateForm = document.querySelector("#generateForm");
 	// reset generate tag form
-	if (document.title === "Tag Generator") {
-		resetGenerateTagForm(generateFormContainer);
-	}
-
-	if (document.title === "Barcode Test") {
-		resetGenerateBarcodeTestForm(generateFormContainer);
-	}
-
+	resetGenerateTagForm(generateForm);
+	toggleFormInputVisibility("generateSourcePurchaseOrder");
 	// display generate tag form
 	generateFormContainer.classList.remove("d-none");
 }
 
-function resetGenerateTagForm(generateFormContainer) {
-	generateFormContainer.querySelector("form").reset();
+function resetGenerateTagForm(form) {
+	form.reset();
 	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
 	withCategoryTablesSwitch.checked = false;
 	withCategoryTablesSwitch.disabled = true;
-}
-
-function resetGenerateBarcodeTestForm(generateFormContainer) {
-	generateFormContainer.querySelector("form").reset();
 }
 
 function toggleGenerateFormVisibility(isVisible) {
@@ -248,8 +226,10 @@ function addBarcodes(tagElementContainer, tagSize) {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
 			format: "ITF",
-			height: tagSize === "small" ? 25 : 50,
-			width: tagSize === "small" ? 1 : 2,
+			height: 25,
+			width: 1,
+			// height: tagSize === "small" ? 25 : 50,
+			// width: tagSize === "small" ? 1 : 2,
 			fontSize: 14,
 			margin: 1,
 			textMargin: 0,
@@ -276,8 +256,10 @@ function addTestBarcodes(tagElementContainer, tagSize) {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
 			format: getBarcodeType(childNode),
-			height: tagSize === "small" ? 25 : 50,
-			width: tagSize === "small" ? 1 : 2,
+			height: 25,
+			width: 1,
+			// height: tagSize === "small" ? 25 : 50,
+			// width: tagSize === "small" ? 1 : 2,
 			fontSize: 14,
 			margin: 1,
 			textMargin: 0,
