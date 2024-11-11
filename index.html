@@ -3,35 +3,18 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/favicon-16x16.png"
-		/>
-		<link
-			rel="manifest"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/site.webmanifest"
-		/>
-		<title>Tag Generator - Generate Tags</title>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<title>Tag Generator</title>
 	</head>
 	<body class="d-flex flex-column min-vh-100 justify-content-between">
 		<!-- HEADER -->
 		<div class="container d-print-none">
 			<header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
 				<a
-					href="https://michael-f-portfolio.github.io/Tag-Generator/"
+					href="/"
 					class="d-flex align-items-center link-body-emphasis text-decoration-none"
 				>
 					<img src="src/assets/imgs/logo.png" width="36" height="36" />
@@ -90,9 +73,13 @@
 				class="container d-flex flex-column align-items-center w-auto bg-light bg-gradient border shadow-sm rounded d-print-none"
 				id="generateFormContainer"
 			>
-				<form id="importForm" class="w-100">
+				<form id="generateForm" class="w-100">
 					<div class="d-flex flex-column align-items-center">
-						<span class="m-3 fs-4">Generate Tags</span>
+						<h2 class="">Generate Tags</h2>
+						<span class="mb-2 fs-6">Generate tags from a purchase order</span>
+						<span class="mb-2 fs-6"
+							>Generate a barcode test containing all available barcode styles</span
+						>
 						<div class="d-flex flex-column align-items-start w-100 mb-2">
 							<span class="fs-5">Generate Source:</span>
 							<div>
