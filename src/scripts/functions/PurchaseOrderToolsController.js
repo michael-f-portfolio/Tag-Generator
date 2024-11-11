@@ -20,6 +20,7 @@ export default class PurchaseOrderToolsController {
 		this.options = {
 			tagOptions: {
 				withBarcodes: false,
+				barcodeType: "",
 				displayCategoryColors: false,
 				tagSize: "small",
 			},

@@ -92,6 +92,7 @@ function handleBarcodeTestFormSubmit(formResult) {
 		options: {
 			tagOptions: {
 				withBarcodes: true,
+				barcodeType: "",
 				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
 				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
 			},
@@ -152,6 +153,7 @@ function getFormData(formResult) {
 		options: {
 			tagOptions: {
 				withBarcodes: formResult.querySelector("#withBarcodes").checked,
+				barcodeType: formResult.querySelector("#barcodeType").value,
 				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
 				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
 			},
@@ -207,9 +209,9 @@ function handleSummary() {
  */
 function handleBarcodes(tagElementContainer, tagOptions, barcodeTest) {
 	if (barcodeTest) {
-		addTestBarcodes(tagElementContainer, tagOptions.tagSize);
+		addTestBarcodes(tagElementContainer, tagOptions.barcodeType, tagOptions.tagSize);
 	} else {
-		addBarcodes(tagElementContainer, tagOptions.tagSize);
+		addBarcodes(tagElementContainer, tagOptions.barcodeType, tagOptions.tagSize);
 	}
 
 	// Toggle visibility of barcodes based on withBarcodes flag
@@ -221,11 +223,11 @@ function handleBarcodes(tagElementContainer, tagOptions, barcodeTest) {
  * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
  * all generated TagElements.
  */
-function addBarcodes(tagElementContainer, tagSize) {
+function addBarcodes(tagElementContainer, barcodeType, tagSize) {
 	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
-			format: "ITF",
+			format: barcodeType,
 			height: 25,
 			width: 1,
 			// height: tagSize === "small" ? 25 : 50,
@@ -251,7 +253,7 @@ function toggleBarcodes(tagElementContainer, withBarcodes) {
 	});
 }
 
-function addTestBarcodes(tagElementContainer, tagSize) {
+function addTestBarcodes(tagElementContainer, barcodeType, tagSize) {
 	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
