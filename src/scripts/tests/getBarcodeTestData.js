@@ -92,17 +92,6 @@ export default function getBarcodeTestData() {
 				"0",
 				"0",
 			],
-			[
-				"777777",
-				"TEST MSI Barcode - Test",
-				"Beverages",
-				"Beverages",
-				"0",
-				"0",
-				"0",
-				"0",
-				"0",
-			],
 		],
 	};
 }

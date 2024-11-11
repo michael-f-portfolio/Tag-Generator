@@ -121,8 +121,8 @@ p {
 }
 
 .tag > img.barcode {
-	height: 10mm;
-	width: 25mm;
+	/* height: 10mm;
+	width: 25mm; */
 }
 
 .tag > p.sku {
@@ -136,11 +136,11 @@ p {
 .tag-large > p {
 	font-size: 1.08rem;
 }
-
+/*
 .tag-large > img.barcode {
 	height: 12mm;
 	width: 40mm;
-}
+} */
 
 /* Category Highlights */
 .background-color-transparent {

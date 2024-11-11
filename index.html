@@ -3,56 +3,23 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/favicon-16x16.png"
-		/>
-		<link
-			rel="manifest"
-			href="https://michael-f-portfolio.github.io/Tag-Generator/site.webmanifest"
-		/>
-		<title>Tag Generator - Generate Tags</title>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<title>Tag Generator</title>
 	</head>
 	<body class="d-flex flex-column min-vh-100 justify-content-between">
+		<!-- HEADER -->
 		<div class="container d-print-none">
 			<header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
 				<a
-					href="https://michael-f-portfolio.github.io/Tag-Generator/"
+					href="/"
 					class="d-flex align-items-center link-body-emphasis text-decoration-none"
 				>
-					<img src="src/assets/imgs/logo.png" width="40" height="40" />
+					<img src="src/assets/imgs/logo.png" width="36" height="36" />
 					<span class="fs-3">Tag Generator</span>
 				</a>
-				<ul class="nav nav-pills">
-					<li class="nav-item">
-						<a
-							href="https://michael-f-portfolio.github.io/Tag-Generator/"
-							class="nav-link active"
-							aria-current="page"
-							>Tags</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							href="https://michael-f-portfolio.github.io/Tag-Generator/barcode-test.html"
-							class="nav-link"
-							>Barcode Test</a
-						>
-					</li>
-				</ul>
 			</header>
 		</div>
 		<main>
@@ -106,33 +73,95 @@
 				class="container d-flex flex-column align-items-center w-auto bg-light bg-gradient border shadow-sm rounded d-print-none"
 				id="generateFormContainer"
 			>
-				<form id="importForm" class="">
+				<form id="generateForm" class="w-100">
 					<div class="d-flex flex-column align-items-center">
-						<span class="m-3 fs-4">Generate Tags From Purchase Order</span>
-						<div class="input-group mb-2">
-							<input
-								type="file"
-								accept=".csv"
-								class="form-control"
-								id="csvFileUpload"
-								autocomplete="off"
-							/>
-						</div>
-						<div class="d-flex flex-column align-items-start w-100 mt-2">
-							<span class="fs-5">Customize Tags:</span>
-							<div class="d-flex flex-column w-100">
-								<div class="form-check form-switch">
+						<h2 class="">Generate Tags</h2>
+						<span class="mb-2 fs-6" id="formDescriptionPO"
+							>Generate tags from a purchase order</span
+						>
+						<span class="mb-2 fs-6 visually-hidden" id="formDescriptionBarcodeTest"
+							>Generate a barcode test containing all available barcode styles</span
+						>
+						<div class="d-flex flex-column align-items-start w-100 mb-2">
+							<span class="fs-5">Generate Source:</span>
+							<div>
+								<div class="form-check form-check-inline">
 									<input
 										class="form-check-input"
-										type="checkbox"
-										role="switch"
-										id="withBarcodes"
+										type="radio"
+										name="generateSource"
+										id="generateSourcePurchaseOrder"
+										value="purchaseOrder"
 										autocomplete="off"
+										checked
 									/>
-									<label class="form-check-label" for="withBarcodes">
-										Show barcodes
-									</label>
+									<label
+										class="form-check-label"
+										for="generateSourcePurchaseOrder"
+										>Purchase Order</label
+									>
 								</div>
+								<div class="form-check form-check-inline">
+									<input
+										class="form-check-input"
+										type="radio"
+										name="generateSource"
+										id="generateSourceBarcodeTest"
+										autocomplete="off"
+										value="barcodeTest"
+									/>
+									<label class="form-check-label" for="generateSourceBarcodeTest"
+										>Barcode Test</label
+									>
+								</div>
+							</div>
+						</div>
+						<div id="fileUploadContainer" class="w-100 mb-2">
+							<div class="input-group mb-2">
+								<input
+									type="file"
+									accept=".csv"
+									class="form-control"
+									id="csvFileUpload"
+									autocomplete="off"
+								/>
+							</div>
+						</div>
+
+						<div class="d-flex flex-column align-items-start w-100 mb-2">
+							<span class="fs-5">Customize Tags:</span>
+							<div class="d-flex flex-column w-100">
+								<div>
+									<!-- <span>Tag Size:</span> -->
+									<div class="form-check form-check-inline">
+										<input
+											class="form-check-input"
+											type="radio"
+											name="tagSize"
+											id="tagSizeSmall"
+											value="small"
+											autocomplete="off"
+											checked
+										/>
+										<label class="form-check-label" for="tagSizeSmall"
+											>Small Tags</label
+										>
+									</div>
+									<div class="form-check form-check-inline">
+										<input
+											class="form-check-input"
+											type="radio"
+											name="tagSize"
+											id="tagSizeLarge"
+											value="large"
+											autocomplete="off"
+										/>
+										<label class="form-check-label" for="tagSizeLarge"
+											>Large Tags</label
+										>
+									</div>
+								</div>
+
 								<div class="form-check form-switch">
 									<input
 										class="form-check-input"
@@ -146,35 +175,32 @@
 										Display category colors
 									</label>
 								</div>
-								<span>Tag Size:</span>
-								<div>
-									<div class="form-check form-check-inline">
-										<input
-											class="form-check-input"
-											type="radio"
-											name="tagSize"
-											id="tagSizeSmall"
-											value="small"
-											checked
-										/>
-										<label class="form-check-label" for="tagSizeSmall"
-											>Small</label
-										>
-									</div>
-									<div class="form-check form-check-inline">
-										<input
-											class="form-check-input"
-											type="radio"
-											name="tagSize"
-											id="tagSizeLarge"
-											value="large"
-										/>
-										<label class="form-check-label" for="tagSizeLarge"
-											>Large</label
-										>
-									</div>
+								<div class="form-check form-switch">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										role="switch"
+										id="withBarcodes"
+										autocomplete="off"
+										checked
+									/>
+									<label class="form-check-label" for="withBarcodes">
+										Show barcodes
+									</label>
 								</div>
-
+								<div class="w-50" id="barcodeTypeContainer">
+									<label class="form-label" for="barcodeType"
+										>Barcode Type:</label
+									>
+									<select class="form-select" id="barcodeType">
+										<option value="CODE128">Code128 auto</option>
+										<option value="CODE128A">Code128 A</option>
+										<option value="CODE128B">Code128 B</option>
+										<option value="CODE128C">Code128 C</option>
+										<option value="CODE39">Code39</option>
+										<option value="ITF">ITF</option>
+									</select>
+								</div>
 								<!-- <div class="form-check form-switch align-self-start">
 									<input
 										class="form-check-input"
@@ -215,7 +241,10 @@
 								</div> -->
 							</div>
 						</div>
-						<div class="d-flex flex-column align-items-start w-100 mt-2">
+						<div
+							id="sortOptionsContainer"
+							class="d-flex flex-column align-items-start w-100 mb-2"
+						>
 							<span class="fs-5">Sort Options:</span>
 							<div class="form-check form-switch">
 								<input
@@ -242,7 +271,10 @@
 								</label>
 							</div>
 						</div>
-						<div class="d-flex flex-column align-items-start w-100 mt-2">
+						<div
+							id="summaryTableOptionsContainer"
+							class="d-flex flex-column align-items-start w-100 mb-2"
+						>
 							<span class="fs-5">Summary Table Options:</span>
 							<div class="form-check form-switch">
 								<input
@@ -347,6 +379,7 @@
 				</button>
 			</div>
 		</main>
+		<!-- FOOTER -->
 		<div class="container d-print-none">
 			<footer class="footer pt-3 mt-3">
 				<ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>

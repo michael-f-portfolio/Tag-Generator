@@ -2,16 +2,11 @@ import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsControll
 
 const purchaseOrderToolsController = new PurchaseOrderToolsController();
 
-addFormEventListeners();
+addEventListeners();
 
-function addFormEventListeners() {
+function addEventListeners() {
 	addPrintFormEventListeners();
-	if (document.title === "Tag Generator - Generate Tags") {
-		addGenerateFormEventListeners();
-	}
-	if (document.title === "Tag Generator - Barcode Test") {
-		addBarcodeTestFormEventListeners();
-	}
+	addGenerateFormEventListeners();
 }
 
 function addPrintFormEventListeners() {
@@ -29,24 +24,21 @@ function addPrintFormEventListeners() {
 }
 
 function addGenerateFormEventListeners() {
+	document.querySelector("#generateSourcePurchaseOrder").addEventListener("click", (event) => {
+		toggleFormInputVisibility(event.target.id);
+	});
+	document.querySelector("#generateSourceBarcodeTest").addEventListener("click", (event) => {
+		toggleFormInputVisibility(event.target.id);
+	});
 	document.querySelector("#withSummary").addEventListener("click", (event) => {
 		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
 	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
-		if (validateGenerateFormSubmit(event.currentTarget.form)) {
-			handleGenerateFormSubmit(event.currentTarget.form);
-		}
+		handleGenerateFormSubmit(event.currentTarget.form);
 	});
 	document.querySelector("#optionsResetBtn").addEventListener("click", (event) => {
-		resetGenerateTagForm();
-	});
-}
-
-function addBarcodeTestFormEventListeners() {
-	document.querySelector("#generateBarcodeTestBtn").addEventListener("click", (event) => {
-		event.preventDefault();
-		handleBarcodeTestFormSubmit(event.currentTarget.form);
+		resetGenerateTagForm(event.target.form);
 	});
 }
 
@@ -60,8 +52,51 @@ function validateGenerateFormSubmit(formResult) {
 	return true;
 }
 
+function toggleFormInputVisibility(eventSource) {
+	const elementsToToggle = [];
+	elementsToToggle.push(
+		document.querySelector("#fileUploadContainer"),
+		document.querySelector("#sortOptionsContainer"),
+		document.querySelector("#summaryTableOptionsContainer"),
+		document.querySelector("#barcodeTypeContainer")
+	);
+	const formDescriptionPO = document.querySelector("#formDescriptionPO");
+	const formDescriptionBarcodeType = document.querySelector("#formDescriptionBarcodeTest");
+	const withBarcodeSwitch = document.querySelector("#withBarcodes");
+	if (eventSource === "generateSourcePurchaseOrder") {
+		// show elements
+		elementsToToggle.forEach((elementToToggle) => {
+			elementToToggle.classList.remove("visually-hidden");
+		});
+		// toggle form description
+		formDescriptionPO.classList.remove("visually-hidden");
+		formDescriptionBarcodeType.classList.add("visually-hidden");
+		// unlock barcode switch
+		withBarcodeSwitch.removeAttribute("disabled");
+	} else if ((eventSource = "generateSourceBarcodeTest")) {
+		// hide elements
+		elementsToToggle.forEach((elementToToggle) => {
+			elementToToggle.classList.add("visually-hidden");
+		});
+		// toggle form description
+		formDescriptionPO.classList.add("visually-hidden");
+		formDescriptionBarcodeType.classList.remove("visually-hidden");
+		// lock barcode switch
+		withBarcodeSwitch.setAttribute("disabled", true);
+	}
+}
+
 function handleGenerateFormSubmit(formResult) {
-	handleGenerate(getFormData(formResult), false);
+	if (formResult.querySelector("#generateSourcePurchaseOrder").checked) {
+		if (validateGenerateFormSubmit(formResult)) {
+			handleGenerate(getFormData(formResult), false);
+		} else {
+			// send validation feedback
+			return false;
+		}
+	} else if (formResult.querySelector("#generateSourceBarcodeTest").checked) {
+		handleBarcodeTestFormSubmit(formResult);
+	}
 	toggleGenerateFormVisibility(false);
 }
 
@@ -71,6 +106,7 @@ function handleBarcodeTestFormSubmit(formResult) {
 		options: {
 			tagOptions: {
 				withBarcodes: true,
+				barcodeType: "",
 				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
 				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
 			},
@@ -89,29 +125,19 @@ function handlePageResetButton() {
 	document.querySelectorAll(".reset-form-container").forEach((node) => {
 		node.classList.add("d-none");
 	});
-	const generateFormContainer = document.querySelector("#generateFormContainer");
+	const generateForm = document.querySelector("#generateForm");
 	// reset generate tag form
-	if (document.title === "Tag Generator") {
-		resetGenerateTagForm(generateFormContainer);
-	}
-
-	if (document.title === "Barcode Test") {
-		resetGenerateBarcodeTestForm(generateFormContainer);
-	}
-
+	resetGenerateTagForm(generateForm);
+	toggleFormInputVisibility("generateSourcePurchaseOrder");
 	// display generate tag form
 	generateFormContainer.classList.remove("d-none");
 }
 
-function resetGenerateTagForm(generateFormContainer) {
-	generateFormContainer.querySelector("form").reset();
+function resetGenerateTagForm(form) {
+	form.reset();
 	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
 	withCategoryTablesSwitch.checked = false;
 	withCategoryTablesSwitch.disabled = true;
-}
-
-function resetGenerateBarcodeTestForm(generateFormContainer) {
-	generateFormContainer.querySelector("form").reset();
 }
 
 function toggleGenerateFormVisibility(isVisible) {
@@ -141,6 +167,7 @@ function getFormData(formResult) {
 		options: {
 			tagOptions: {
 				withBarcodes: formResult.querySelector("#withBarcodes").checked,
+				barcodeType: formResult.querySelector("#barcodeType").value,
 				displayCategoryColors: formResult.querySelector("#displayCategoryColors").checked,
 				tagSize: formResult.querySelector("#tagSizeSmall").checked ? "small" : "large",
 			},
@@ -196,9 +223,9 @@ function handleSummary() {
  */
 function handleBarcodes(tagElementContainer, tagOptions, barcodeTest) {
 	if (barcodeTest) {
-		addTestBarcodes(tagElementContainer, tagOptions.tagSize);
+		addTestBarcodes(tagElementContainer, tagOptions.barcodeType, tagOptions.tagSize);
 	} else {
-		addBarcodes(tagElementContainer, tagOptions.tagSize);
+		addBarcodes(tagElementContainer, tagOptions.barcodeType, tagOptions.tagSize);
 	}
 
 	// Toggle visibility of barcodes based on withBarcodes flag
@@ -210,13 +237,15 @@ function handleBarcodes(tagElementContainer, tagOptions, barcodeTest) {
  * @param {HTMLDivElement} tagElementContainer A DIV container on the DOM which contains
  * all generated TagElements.
  */
-function addBarcodes(tagElementContainer, tagSize) {
+function addBarcodes(tagElementContainer, barcodeType, tagSize) {
 	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
-			format: "ITF",
-			height: tagSize === "small" ? 25 : 50,
-			width: tagSize === "small" ? 1 : 2,
+			format: barcodeType,
+			height: 25,
+			width: 1,
+			// height: tagSize === "small" ? 25 : 50,
+			// width: tagSize === "small" ? 1 : 2,
 			fontSize: 14,
 			margin: 1,
 			textMargin: 0,
@@ -238,13 +267,15 @@ function toggleBarcodes(tagElementContainer, withBarcodes) {
 	});
 }
 
-function addTestBarcodes(tagElementContainer, tagSize) {
+function addTestBarcodes(tagElementContainer, barcodeType, tagSize) {
 	tagElementContainer.childNodes.forEach((childNode) => {
 		const img = childNode.querySelector("img");
 		JsBarcode(`#${img.id}`, `${img.id.replace("barcode-", "")}`, {
 			format: getBarcodeType(childNode),
-			height: tagSize === "small" ? 25 : 50,
-			width: tagSize === "small" ? 1 : 2,
+			height: 25,
+			width: 1,
+			// height: tagSize === "small" ? 25 : 50,
+			// width: tagSize === "small" ? 1 : 2,
 			fontSize: 14,
 			margin: 1,
 			textMargin: 0,
@@ -271,11 +302,5 @@ function getBarcodeType(element) {
 	}
 	if (element.querySelector("p.name").textContent.includes("ITF")) {
 		return "ITF";
-	}
-	if (element.querySelector("p.name").textContent.includes("MSI")) {
-		return "MSI";
-	}
-	if (element.querySelector("p.name").textContent.includes("Pharmacode")) {
-		return "pharmacode";
 	}
 }
