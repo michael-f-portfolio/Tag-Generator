@@ -23,6 +23,16 @@ export default class PurchaseOrderToolsController {
 				barcodeType: "",
 				displayCategoryColors: false,
 				tagSize: "small",
+				categoryColors: {
+					beverages: { r: 64, g: 158, b: 89 },
+					concentrates: { r: 211, g: 157, b: 257 },
+					edibles: { r: 149, g: 250, b: 176 },
+					flower: { r: 255, g: 252, b: 85 },
+					nonInfusedPreRolls: { r: 85, g: 116, b: 255 },
+					infusedPreRolls: { r: 179, g: 86, b: 255 },
+					capsulesOilsTopicals: { r: 255, g: 183, b: 88 },
+					vaporizers: { r: 255, g: 99, b: 247 },
+				},
 			},
 			sortOptions: {
 				sortEdibles: false,
