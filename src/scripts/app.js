@@ -1,3 +1,4 @@
+import hexToRgb from "./functions/helpers/hexToRgb.js";
 import PurchaseOrderToolsController from "./functions/PurchaseOrderToolsController.js";
 
 const purchaseOrderToolsController = new PurchaseOrderToolsController();
@@ -32,6 +33,16 @@ function addGenerateFormEventListeners() {
 	});
 	document.querySelector("#withSummary").addEventListener("click", (event) => {
 		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
+	});
+	document.querySelector("#categoryColorSelect").addEventListener("change", (event) => {
+		console.log(event.target.value);
+	});
+	document.querySelector("#categoryColorPicker").addEventListener("change", (event) => {
+		console.log(event.target.value);
+		console.log(hexToRgb(event.target.value));
+	});
+	document.querySelector("#categoryColorBtn").addEventListener("event", (event) => {
+		console.log(event);
 	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
