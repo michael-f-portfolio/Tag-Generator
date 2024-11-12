@@ -58,7 +58,8 @@ function toggleFormInputVisibility(eventSource) {
 		document.querySelector("#fileUploadContainer"),
 		document.querySelector("#sortOptionsContainer"),
 		document.querySelector("#summaryTableOptionsContainer"),
-		document.querySelector("#barcodeTypeContainer")
+		document.querySelector("#barcodeTypeContainer"),
+		document.querySelector("#categoryColorContainer")
 	);
 	const formDescriptionPO = document.querySelector("#formDescriptionPO");
 	const formDescriptionBarcodeType = document.querySelector("#formDescriptionBarcodeTest");
