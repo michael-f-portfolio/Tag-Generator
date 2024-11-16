@@ -135,6 +135,7 @@ function handlePageResetButton() {
 
 function resetGenerateTagForm(form) {
 	form.reset();
+	toggleFormInputVisibility("generateSourcePurchaseOrder");
 	const withCategoryTablesSwitch = generateFormContainer.querySelector("#withCategoryTables");
 	withCategoryTablesSwitch.checked = false;
 	withCategoryTablesSwitch.disabled = true;
