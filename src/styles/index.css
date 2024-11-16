@@ -14,6 +14,16 @@
 	--blue-400: #60a5fa;
 	--blue-600: #2563eb;
 	--blue-800: #1e40af;
+
+	/* category colors */
+	--category-beverages: rgba(64, 158, 89, 0.5);
+	--category-concentrates: rgba(211, 157, 255, 0.5);
+	--category-edibles: rgba(149, 250, 176, 0.5);
+	--category-flower: rgba(255, 252, 85, 0.5);
+	--category-preRolls: rgba(85, 116, 255, 0.5);
+	--category-preRollsInfused: rgba(179, 86, 255, 0.5);
+	--category-oilsCapsulesTopicals: rgba(255, 183, 88, 0.5);
+	--category-vaporizers: rgba(255, 99, 247, 0.5);
 }
 
 @font-face {
@@ -146,38 +156,39 @@ p {
 .background-color-transparent {
 	background-color: transparent !important;
 }
-p.category-Edibles {
-	background-color: rgba(149, 250, 176, 0.5);
-}
 
 p.category-Beverages {
-	background-color: rgba(64, 158, 89, 0.5);
-}
-
-p.category-Vapes {
-	background-color: rgba(255, 99, 247, 0.5);
+	background-color: var(--category-beverages);
 }
 
 p.category-Concentrates {
-	background-color: rgba(211, 157, 255, 0.5);
+	background-color: var(--category-concentrates);
+}
+
+p.category-Edibles {
+	background-color: var(--category-edibles);
+}
+
+p.category-Flower {
+	background-color: var(--category-flower);
+}
+
+p.category-Pre-Rolls {
+	background-color: var(--category-preRolls);
 }
 
 p.category-Pre-Rolls.subCategory-Infused-Pre-Rolls,
 p.category-Pre-Rolls.subCategory-Infused-Blunts {
-	background-color: rgba(179, 86, 255, 0.5);
-}
-
-p.category-Pre-Rolls {
-	background-color: rgba(85, 116, 255, 0.5);
+	background-color: var(--category-preRollsInfused);
 }
 
 p.category-Oils-and-Caps,
 p.category-Topicals {
-	background-color: rgba(255, 183, 88, 0.5);
+	background-color: var(--category-oilsCapsulesTopicals);
 }
 
-p.category-Flower {
-	background-color: rgba(255, 252, 85, 0.5);
+p.category-Vapes {
+	background-color: var(--category-vaporizers);
 }
 
 @media print {
