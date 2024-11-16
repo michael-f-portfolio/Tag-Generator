@@ -25,14 +25,12 @@ function addPrintFormEventListeners() {
 }
 
 function addGenerateFormEventListeners() {
+	// source type toggle
 	document.querySelector("#generateSourcePurchaseOrder").addEventListener("click", (event) => {
 		toggleFormInputVisibility(event.target.id);
 	});
 	document.querySelector("#generateSourceBarcodeTest").addEventListener("click", (event) => {
 		toggleFormInputVisibility(event.target.id);
-	});
-	document.querySelector("#withSummary").addEventListener("click", (event) => {
-		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
 	});
 	document.querySelector("#categoryColorSelect").addEventListener("change", (event) => {
 		console.log(event.target.value);
@@ -43,6 +41,9 @@ function addGenerateFormEventListeners() {
 	});
 	document.querySelector("#categoryColorBtn").addEventListener("event", (event) => {
 		console.log(event);
+	});
+	document.querySelector("#withSummary").addEventListener("click", (event) => {
+		document.querySelector("#withCategoryTables").toggleAttribute("disabled");
 	});
 	document.querySelector("#generateBtn").addEventListener("click", (event) => {
 		event.preventDefault();
