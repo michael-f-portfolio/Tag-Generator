@@ -60,7 +60,7 @@ export default class Products {
 	createProducts() {
 		if (this.parsedData) {
 			const products = [];
-			this.parsedData = this.parsedData.data.slice(15);
+			this.parsedData = this.parsedData.data.slice(16);
 			for (let i = 0; i < this.parsedData.length; i++) {
 				const item = this.parsedData[i];
 				// Edit History has been added to the end of the CSV, so once we hit that we're at the end of the PO
